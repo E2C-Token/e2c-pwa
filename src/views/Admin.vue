@@ -135,7 +135,7 @@ export default {
       let user = fb.auth().currentUser;
       this.email = user.email;
       this.name = user.name;
-
+      this.uid = user.uid;
   }
 };
 </script>

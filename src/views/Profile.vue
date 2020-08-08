@@ -113,7 +113,7 @@
 
                         <div class="col-md-4">
                           <div class="form-group">
-                              <input type="submit" value="Save Changes" class="btn btn-primary w-100">
+                              <input type="submit" @click="saveChanges()" value="Save Changes" class="btn btn-primary w-100">
                           </div>
                         </div>
 
@@ -189,9 +189,10 @@ export default {
               console.log(error);
           });
       },
+      
 
       updateProfile(){
-          this.$firestore.profile.update(this.profile);
+          this.$firestore.profiles.update(this.profile);
       },
       uploadImage(){}
   },

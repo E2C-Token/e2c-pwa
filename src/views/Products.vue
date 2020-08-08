@@ -5,10 +5,10 @@
         <div class="intro h-100">
             <div class="row h-100 justify-content-center align-items-center">
               <div class="col-md-6">
-                    <h3>Products Page</h3>
+                    <h3>ALL Products Page</h3>
                     
                  <p>
-                   Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde, ducimus.
+                   ALL products
                  </p>
               </div>
               <div class="col-md-6">
@@ -30,6 +30,7 @@
                 <table class="table">
                   <thead>
                     <tr>
+                      <th>Imagem</th>
                       <th>Name</th>
                       <th>Price</th>
                       <th>Modify</th>
@@ -37,7 +38,13 @@
                   </thead>
 
                   <tbody>
-                      <tr v-for="product in products">
+                      <tr v-for="product in myProducts">
+                                             
+                        
+                        <td>
+                          
+                          <img :src="product.images" alt="" width="80px">
+                        </td>
                         <td>
                           {{product.name}}
                         </td>
@@ -77,12 +84,14 @@
                 <div class="row">
                   <!-- main product -->
                   <div class="col-md-8">
+                    
+                    
                     <div class="form-group">
                       <input type="text" placeholder="Product Name" v-model="product.name" class="form-control">
                     </div>
 
                     <div class="form-group">
-                      <vue-editor v-model="product.description"></vue-editor>
+                      <input type="text" placeholder="Product Description" v-model="product.description" class="form-control">
                     </div>
                   </div>
                   <!-- product sidebar -->
@@ -90,9 +99,12 @@
                     <h4 class="display-6">Product Details</h4>
                     <hr>
 
+                    
                     <div class="form-group">
-                      <input type="text" placeholder="Product price" v-model="product.price" class="form-control">
+                      <input type="number" placeholder="Product price" v-model="product.price" class="form-control">
                     </div>
+
+                    
 
                     <div class="form-group">
                       <input type="text" @keyup.188="addTag" placeholder="Product tags" v-model="tag" class="form-control">
@@ -122,10 +134,6 @@
 
                   </div>
                 </div>
-
-
-
-
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -142,27 +150,32 @@
 </template>
 
 <script>
-import { VueEditor } from "vue2-editor";
+
 import { fb, db} from '../firebase';
 
 export default {
   name: "Products",
   components: {
-    VueEditor
+    
   },
   props: {
     msg: String
   },
 
   data(){
+    
     return {
         products: [],
+        myProducts:[],
         product: {
           name:null,
+          uid:null,
+          email:null,
           description:null,
           price:null,
           tags:[],
           images:[]
+          
         },
         activeItem:null,
         modal: null,
@@ -172,7 +185,10 @@ export default {
 
   firestore(){
       return {
+        
         products: db.collection('products'),
+        myProducts: db.collection('products').where('uid', '==', fb.auth().currentUser.uid)
+        
       }
   },
   methods:{
@@ -194,7 +210,8 @@ export default {
 
     addTag(){
        this.product.tags.push(this.tag);
-       this.tag = "";
+       
+       
     },
     uploadImage(e){
 
@@ -230,6 +247,8 @@ export default {
     reset(){
       this.product = {
           name:null,
+          email:null, 
+          uid:null,
           description:null,
           price:null,
           tags:[],
@@ -241,6 +260,7 @@ export default {
         this.modal = 'new';
         this.reset();
         $('#product').modal('show');
+        
     },
     updateProduct(){
         this.$firestore.products.doc(this.product.id).update(this.product);
@@ -287,14 +307,18 @@ export default {
 
         
     },
-    readData(){
-
-      
-     
-    },
+    
     addProduct(){
-      
-      this.$firestore.products.add(this.product);
+      var user = fb.auth().currentUser;      
+      this.$firestore.products.add({
+        name: this.product.name,
+        description: this.product.description,
+        uid: user.uid,
+        email: user.email,
+        price: this.product.price,
+        tags: this.product.tags,
+        images: this.product.images
+      });
       
           Toast.fire({
             type: 'success',
@@ -302,12 +326,15 @@ export default {
           })
 
       $('#product').modal('hide');
+      
     }
 
   
   },
   created(){
-  
+    var user = fb.auth().currentUser;
+    this.uid = user.uid;
+    this.email = user.email;
 
   }
 };

@@ -1,9 +1,11 @@
 import Vue from "vue";
 import App from "./App.vue";
+import * as VueGoogleMaps from "vue2-google-maps";
 import router from "./router";
 import jQuery from 'jquery';
 import {fb}   from './firebase'
 import VueFirestore from 'vue-firestore'
+
 require('firebase/firestore')
 
 
@@ -66,6 +68,13 @@ fb.auth().onAuthStateChanged(function(user) {
     
   }
 
+});
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: "AIzaSyBQgQjYj2vPwNx6_i3XZCtlyPICDnKZSTc",
+    libraries: "places" // necessary for places input
+  }
 });
 
 

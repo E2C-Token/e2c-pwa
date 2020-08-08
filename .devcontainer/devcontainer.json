@@ -1,0 +1,17 @@
+{
+    "name": "VUE ENV",
+    "dockerfile": "Dockerfile",
+    "appPort": [3000],
+    "nunArgs": ["-u", "node"],
+    "settings": {
+		"terminal.integrated.shell.linux": null,
+		"workbench.colorTheme": "Cobalt2",
+		"terminal.itegrated.shell.linux": "/bin/bash"
+	},
+    "postCreateCommand": "npm install",
+    "extensions": [
+        "esbenp.prettier-vscode",
+        "wesbos.theme-cobalt2"
+	],
+	"dockerFile": "..\\Dockerfile",
+	"context": ".."
