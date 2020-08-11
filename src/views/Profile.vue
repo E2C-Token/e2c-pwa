@@ -192,7 +192,7 @@ export default {
       
 
       updateProfile(){
-          this.$firestore.profiles.update(this.profile);
+          this.$firestore.profile.update(this.profile);
       },
       uploadImage(){}
   },
