@@ -10,14 +10,7 @@
         @click="center=m.position"
       ></gmap-marker>
     </gmap-map>
-    <div>
-      <h2>Search and add a pin</h2>
-      <label>
-        <gmap-autocomplete @place_changed="setPlace"></gmap-autocomplete>
-        <button @click="addMarker">Add</button>
-      </label>
-      <br />
-    </div>
+    
   </div>
 </template>
 
@@ -33,12 +26,13 @@ export default {
       center: { lat: 45.508, lng: -73.587 },
       markers: [],
       places: [],
-      currentPlace: null,
+      currentPlace: null
     };
   },
 
   mounted() {
     this.geolocate();
+    
     
   },
 
@@ -46,10 +40,9 @@ export default {
     // busca produtores no db
     firestore() {
       return {
-        markers: db.collection("markers"),
+        markers: db.collection("markers")
       };
     },
-    getMarkers() {},
     // receives a place object via the autocomplete component
     setPlace(place) {
       this.currentPlace = place;
@@ -73,7 +66,8 @@ export default {
           lng: position.coords.longitude,
         };
       });
+      
     },
   },
 };
-</script>
+</script>´

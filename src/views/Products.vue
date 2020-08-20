@@ -187,7 +187,7 @@ export default {
       return {
         
         products: db.collection('products'),
-        myProducts: db.collection('products').where('uid', '==', fb.auth().currentUser.uid)
+        myProducts: db.collection('products').where('uid', '==', 'Rn9lyyw4B0Q2iBWY1dP5ptO9G9L2')
         
       }
   },

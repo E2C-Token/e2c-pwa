@@ -2,10 +2,14 @@
   <div class="home">
     <Navbar></Navbar>
       <div>
+      
+      <div>
+        <MapGeocoder />
+      </div>
       <table>
         <tr>
         <td width="900px">
-          <google-map />
+          
         </td>
         <td width="900px">
           View
@@ -40,12 +44,12 @@
 import Hero from "@/components/Hero.vue";
 import Products from "@/sections/Products.vue";
 import Login from "@/components/Login.vue";
-import GoogleMap from "@/components/GoogleMap.vue";
+import MapGeocoder from "@/components/MapGeocoder.vue";
 
 export default {
   name: "home",
   components: {
-    Hero,Products,Login,GoogleMap
+    Hero,Products,Login,MapGeocoder
   }
 };
 </script>
