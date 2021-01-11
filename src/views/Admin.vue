@@ -8,7 +8,7 @@
             <div class="sidebar-content">
                 <!-- sidebar-brand  -->
                 <div class="sidebar-item sidebar-brand">
-                    <a href="#"> <img src="..\assets\icon_popUp_.png" width="42px">Locavorize Shop</a>
+                    <a href="#"> <img src="..\assets\icon_popUp_.png" width="42px"> Locavorize Produtor</a>
                     <div id="close-sidebar" @click="closeMenu">
                         <i class="fas fa-times"></i>
                     </div>
@@ -19,9 +19,7 @@
                         <img class="img-responsive img-rounded" src="/img/user.png" alt="User picture">
                     </div>
                     <div class="user-info">
-                        <span class="user-name">
-                            User
-                        </span>
+                        <span class="user-name">{{name}}</span>
                         <span class="user-role"> {{email}} </span>
                         <span class="user-status">
                             <i class="fa fa-circle"></i>
@@ -91,12 +89,7 @@
             <router-view/>
         </main>
         <!-- page-content" -->
-    </div>
-    <!-- page-wrapper -->
-
-
-
-
+    </div><!-- page-wrapper -->
   </div>
 </template>
 

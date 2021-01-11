@@ -1,21 +1,7 @@
 <template>
   <div class="home">
     <Navbar></Navbar>
-      <div>
-      
-      <div>
-        <MapGeocoder />
-      </div>
-      <table>
-        <tr>
-        <td width="900px">
-          
-        </td>
-        <td width="900px">
-          View
-        </td>
-        </tr>
-      </table> </div>     
+         
       <products-list></products-list>
 
       <div class="container h-100">
@@ -44,12 +30,12 @@
 import Hero from "@/components/Hero.vue";
 import Products from "@/sections/Products.vue";
 import Login from "@/components/Login.vue";
-import MapGeocoder from "@/components/MapGeocoder.vue";
+
 
 export default {
   name: "home",
   components: {
-    Hero,Products,Login,MapGeocoder
+    Hero,Products,Login
   }
 };
 </script>

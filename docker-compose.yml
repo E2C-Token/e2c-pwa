@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   my-app:
-    container_name: vue-shop
+    container_name: locavorize-producer
     build:
       context: .
       dockerfile: Dockerfile

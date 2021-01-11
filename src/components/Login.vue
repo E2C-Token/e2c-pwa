@@ -99,7 +99,7 @@ export default {
           fb.auth().signInWithEmailAndPassword(this.email, this.password)
                         .then(() => {
                         $('#login').modal('hide')
-                          this.$router.replace('admin');  
+                          this.$router.replace('admin/products');  
                         })
                         .catch(function(error) {
                             // Handle Errors here.
@@ -120,7 +120,8 @@ export default {
                     $('#login').modal('hide')
                     
                     db.collection("profiles").doc(user.user.uid).set({
-                        name: this.name
+                        name: this.name,
+                        createdAt: new Date()
                     })
                     .then(function() {
                         console.log("Document successfully written!");
@@ -129,7 +130,7 @@ export default {
                         console.error("Error writing document: ", error);
                     });
 
-                    this.$router.replace('admin');
+                    this.$router.replace('admin/profile');
                 })
                 .catch(function(error) {
                 // Handle Errors here.

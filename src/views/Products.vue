@@ -5,7 +5,7 @@
         <div class="intro h-100">
             <div class="row h-100 justify-content-center align-items-center">
               <div class="col-md-6">
-                    <h3>ALL Products Page</h3>
+                    <h3>My Products Page</h3>
                     
                  <p>
                    ALL products
@@ -38,11 +38,8 @@
                   </thead>
 
                   <tbody>
-                      <tr v-for="product in myProducts">
-                                             
-                        
-                        <td>
-                          
+                      <tr v-for="product in myProducts">                        
+                        <td>                          
                           <img :src="product.images" alt="" width="80px">
                         </td>
                         <td>
@@ -184,10 +181,11 @@ export default {
   },
 
   firestore(){
+    const user = fb.auth().currentUser;
       return {
         
         products: db.collection('products'),
-        myProducts: db.collection('products').where('uid', '==', 'Rn9lyyw4B0Q2iBWY1dP5ptO9G9L2')
+        myProducts: db.collection('products').where('uid', '==', user.uid)
         
       }
   },
@@ -298,14 +296,9 @@ export default {
           Toast.fire({
             type: 'success',
             title: 'Deleted  successfully'
-          })
-
-        
+          })        
         }
-      })
-
-
-        
+      })        
     },
     
     addProduct(){
@@ -314,6 +307,7 @@ export default {
         name: this.product.name,
         description: this.product.description,
         uid: user.uid,
+        createdAt: new Date(),
         email: user.email,
         price: this.product.price,
         tags: this.product.tags,

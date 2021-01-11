@@ -50,10 +50,7 @@ export default new Vuex.Store({
 
         this.commit('saveData');
 
-      },
-
-
-      
+      },     
 
 
     }
