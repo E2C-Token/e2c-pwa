@@ -5,7 +5,6 @@
         <div class="row h-100 align-items-center">
           <div class="col-md-6 ml-3">
             <h3>Profile settings</h3>
-
             <p>
               Change your profile settings here
             </p>
@@ -84,13 +83,25 @@
                   </div>
                 </div>
 
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label>Address</label>
                     <input
                       type="text"
                       v-model="profile.address"
                       placeholder="Address"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Neighborhood</label>
+                    <input
+                      type="text"
+                      v-model="profile.neighborhood"
+                      placeholder="Neighborhood"
                       class="form-control"
                     />
                   </div>
@@ -209,13 +220,16 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>    
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 import { VueEditor } from "vue2-editor";
 import { fb, db } from "../firebase";
+
+const that = this;
 
 export default {
   name: "profile",
@@ -232,6 +246,7 @@ export default {
         name: null,
         phone: null,
         address: null,
+        neighborhood: null,
         postcode: null,
       },
 
@@ -251,9 +266,11 @@ export default {
     const user = fb.auth().currentUser;
     return {
       profile: db.collection("profiles").doc(user.uid),
+      markers: db.collection("markers").doc()
     };
   },
-  methods: {
+  methods: {    
+
     resetPassword() {
       const auth = fb.auth();
       auth
@@ -271,10 +288,17 @@ export default {
 
     updateProfile() {
       this.$firestore.profile.update(this.profile);
-      alert("Perfil atualizado");
-      this.$router.replace("products");
-    },
-    uploadImage() {},
+      //alert("Perfil atualizado");
+      //this.$router.replace("products");
+      axios.post("https://maps.googleapis.com/maps/api/geocode/json?address={{profile.address}}+{{profile.neighborhood}}+BR&key=AIzaSyC9Sbj0ipn36mn0cEEtg2czKa7oe8dqKk0")
+      .then(res => {               
+        let location = res.data.results[0].geometry.location
+        this.$firestore.markers.add(location);
+        console.log(location);        
+      });
+      //db.collection("profiles").doc(user.user.uid).set(location)
+      
+    },    
   },
   created() {},
 };
