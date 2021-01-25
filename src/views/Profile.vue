@@ -71,6 +71,19 @@
                   </div>
                 </div>
 
+                 <div class="col-md-8">
+                  <div class="form-group">
+                    <label>Postcode</label>
+                    <input
+                      type="text"
+                      v-model="profile.postCode"
+                      @blur="translateZipcode(profile.postCode)"
+                      placeholder="Postcode"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Phone</label>
@@ -105,19 +118,7 @@
                       class="form-control"
                     />
                   </div>
-                </div>
-
-                <div class="col-md-8">
-                  <div class="form-group">
-                    <label>Postcode</label>
-                    <input
-                      type="text"
-                      v-model="profile.postCode"
-                      placeholder="Postcode"
-                      class="form-control"
-                    />
-                  </div>
-                </div>
+                </div>              
 
                 <div class="col-md-4">
                   <div class="form-group">
@@ -247,12 +248,13 @@ export default {
         phone: null,
         address: null,
         neighborhood: null,
-        postcode: null,
+        postCode: null,
         geolocation: {
           lat: null,
           lng: null
         }
       },
+      cepResponse: null,
 
       account: {
         name: null,
@@ -273,7 +275,20 @@ export default {
       //markers: db.collection("markers").doc()
     };
   },
-  methods: {    
+  methods: {   
+    
+    translateZipcode() {      
+      let postCode = this.profile.postCode
+      let address = this.profile.address
+      let cepResponse = axios.get('https://api.postmon.com.br/v1/cep/'+ `${postCode}`)
+      .then(response => (cepResponse = response.data))
+  
+      /* Tratar os dados no retorno*/
+      
+      console.log(cepResponse)
+      
+      
+    },
 
     resetPassword() {
       const auth = fb.auth();
@@ -289,7 +304,7 @@ export default {
           console.log(error);
         });
     },
-
+    
     updateProfile() { 
        this.$firestore.profile.update(this.profile);     
       //alert("Perfil atualizado");
@@ -299,7 +314,7 @@ export default {
       axios.post("https://maps.googleapis.com/maps/api/geocode/json?address={{this.address}}+{{this.neighborhood}}+BR&key=AIzaSyC9Sbj0ipn36mn0cEEtg2czKa7oe8dqKk0")
       .then(res => {         
         let geolocation = res.data.results[0].geometry.location
-        console.log(geolocation)        
+        console.log(geolocation)      
                 
       });      
     },    
