@@ -100,7 +100,7 @@
                     <label>Neighborhood</label>
                     <input
                       type="text"
-                      v-model="profile.neighborhood"
+                      v-model="profile.neighborhood"                                            
                       placeholder="Neighborhood"
                       class="form-control"
                     />
@@ -248,6 +248,10 @@ export default {
         address: null,
         neighborhood: null,
         postcode: null,
+        geolocation: {
+          lat: null,
+          lng: null
+        }
       },
 
       account: {
@@ -266,7 +270,7 @@ export default {
     const user = fb.auth().currentUser;
     return {
       profile: db.collection("profiles").doc(user.uid),
-      markers: db.collection("markers").doc()
+      //markers: db.collection("markers").doc()
     };
   },
   methods: {    
@@ -286,18 +290,18 @@ export default {
         });
     },
 
-    updateProfile() {
-      this.$firestore.profile.update(this.profile);
+    updateProfile() { 
+       this.$firestore.profile.update(this.profile);     
       //alert("Perfil atualizado");
       //this.$router.replace("products");
-      axios.post("https://maps.googleapis.com/maps/api/geocode/json?address={{profile.address}}+{{profile.neighborhood}}+BR&key=AIzaSyC9Sbj0ipn36mn0cEEtg2czKa7oe8dqKk0")
-      .then(res => {               
-        let location = res.data.results[0].geometry.location
-        this.$firestore.markers.add(location);
-        console.log(location);        
-      });
-      //db.collection("profiles").doc(user.user.uid).set(location)
-      
+      let address = profile.address
+      let neighborhood = profile.neighborhood 
+      axios.post("https://maps.googleapis.com/maps/api/geocode/json?address={{this.address}}+{{this.neighborhood}}+BR&key=AIzaSyC9Sbj0ipn36mn0cEEtg2czKa7oe8dqKk0")
+      .then(res => {         
+        let geolocation = res.data.results[0].geometry.location
+        console.log(geolocation)        
+                
+      });      
     },    
   },
   created() {},
