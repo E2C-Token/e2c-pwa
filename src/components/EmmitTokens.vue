@@ -1,58 +1,60 @@
-<template>  
-    <div class="container">
-      <div class="row">
-        <div class="col-sm">
-            <h3>Emitir Tokens</h3>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect01">Para</label>
-            </div>
-            <select class="custom-select" id="inputGroupSelect01" v-model="quemRecebe">
-              <option selected>Selecione...</option>
-              <option v-for="(u, index) in users" :key="index" :value="u">{{
-              u.name
-            }}</option>
-            </select>
-          </div>
-
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Quantitativo</span>
-            </div>
-            <input
-              v-model.number="amount"
-              type="text"
-              class="form-control"
-              aria-label="Amount (to the nearest dollar)"
-            />
-            <div class="input-group-append">
-              <span class="input-group-text">E2C</span>
-            </div>
-          </div>
-
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Descrição</span>
-            </div>
-            <textarea
-              v-model="descricao"
-              class="form-control"
-              aria-label="With textarea"
-            ></textarea>
-          </div>
-          <br />
-          <div>
-            <button type="button" class="btn btn-primary btn-sm" @click="emitirTokens()">Emitir</button>
-          </div>
+<template>
+  <div class="container">
+    <div class="row">
+      <h3>Emitir Tokens</h3>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Para</label>
         </div>
-        <div class="col-sm">
-          
+        <select
+          class="custom-select"
+          id="inputGroupSelect01"
+          v-model="quemRecebe"
+        >
+          <option selected>Selecione...</option>
+          <option v-for="(u, index) in users" :key="index" :value="u">{{
+            u.name
+          }}</option>
+        </select>
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Quantitativo</span>
         </div>
-        <div class="col-sm">
-          
+        <input
+          v-model.number="amount"
+          type="text"
+          class="form-control"
+          aria-label="Amount (to the nearest dollar)"
+        />
+        <div class="input-group-append">
+          <span class="input-group-text">E2C</span>
         </div>
       </div>
-    </div>  
+
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Descrição</span>
+        </div>
+        <textarea
+          v-model="descricao"
+          class="form-control"
+          aria-label="With textarea"
+        ></textarea>
+      </div>
+      <br />
+      <div>
+        <button
+          type="button"
+          class="btn btn-primary btn-sm"
+          @click="emitirTokens()"
+        >
+          Emitir
+        </button>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import { mapState } from "vuex";

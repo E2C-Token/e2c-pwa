@@ -1,13 +1,25 @@
 <template>
   <div class="overview">     
-      
-      <EmmitTokens />      
-    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">                 
+          <EmmitTokens />
+       
+        </div>
+        <div class="col-sm">
+          
+        </div>
+        <div class="col-sm">
+          <IntentionLiquidate />
+        </div>
+      </div>
+    </div> 
   </div>
 </template>
 
 <script>
 import EmmitTokens from "../components/EmmitTokens";
+import IntentionLiquidate from "../components/IntentionLiquidate";
 export default {
   
   name: "Overview",
@@ -15,7 +27,8 @@ export default {
     msg: String
   },
   components: {
-    EmmitTokens
+    EmmitTokens,
+    IntentionLiquidate
   }
 };
 </script>
