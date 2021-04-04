@@ -13,54 +13,53 @@
                                 <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-login" role="tab" aria-controls="pills-login" aria-selected="true">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="pills-register-tab" data-toggle="pill" href="#pills-register" role="tab" aria-controls="pills-register" aria-selected="false">Signup</a>
+                                <a class="nav-link" id="pills-register-tab" data-toggle="pill" href="#pills-register" role="tab" aria-controls="pills-register" aria-selected="false">Criar conta</a>
                             </li>
                         </ul>
 
                         <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="pills-login-tab">
                             <center>
-                            <img src="..\assets\default_image.png" width="150px">
+                            <!-- <img src="..\assets\default_image.png" width="150px"> -->
                             </center><br>
-                            <h5 class="text-center">Login Please</h5>
+                            <h5 class="text-center">Login</h5>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" v-model="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                                <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                <label for="exampleInputEmail1">Email</label>
+                                <input type="email" v-model="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Digite seu email">                                
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Password</label>
-                                <input type="password" @keyup.enter="login" v-model="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                <label for="exampleInputPassword1">Senha</label>
+                                <input type="password" @keyup.enter="login" v-model="password" class="form-control" id="exampleInputPassword1" placeholder="Senha">
                             </div>
 
                              <div class="form-group">
-                                <button class="btn btn-primary" @click="login">Login</button>
+                                <button class="btn btn-primary" @click="login">Entrar</button>
                             </div>
 
                         </div>
                         <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="pills-register-tab">
                             
                              <center>
-                            <img src="..\assets\default_image.png" width="150px">
+                            <!-- <img src="..\assets\default_image.png" width="150px"> -->
                             </center><br>
-                             <h5 class="text-center">Create New Account</h5>
+                             <h5 class="text-center">Nova Conta</h5>
                              
                             <div class="form-group">
-                                <label for="name">Your name</label>
-                                <input type="text" v-model="name" class="form-control" id="name" placeholder="Your nice name">
+                                <label for="name">Seu nome</label>
+                                <input type="text" v-model="name" class="form-control" id="name" placeholder="Digite seu nome">
                             </div>
 
                             <div class="form-group">
-                                <label for="email">Email address</label>
-                                <input type="email"  v-model="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                                <label for="email">Seu email</label>
+                                <input type="email"  v-model="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Digite seu email">
                             </div>
                             <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" v-model="password" class="form-control" id="password" placeholder="Password">
+                                <label for="password">Senha</label>
+                                <input type="password" v-model="password" class="form-control" id="password" placeholder="Senha">
                             </div>
 
                             <div class="form-group">
-                                <button class="btn btn-primary" @click="register">Signup</button>
+                                <button class="btn btn-primary" @click="register">Cadastrar</button>
                             </div>
 
                         </div>
@@ -95,7 +94,6 @@ export default {
 
   methods:{
       login(){
-
           fb.auth().signInWithEmailAndPassword(this.email, this.password)
                         .then(() => {
                         $('#login').modal('hide')
@@ -119,7 +117,7 @@ export default {
                 .then((user) => {
                     $('#login').modal('hide')
                     
-                    db.collection("profiles").doc(user.user.uid).set({
+                    db.collection("users").doc(user.user.uid).set({
                         name: this.name,
                         createdAt: new Date()
                     })
@@ -130,6 +128,17 @@ export default {
                         console.error("Error writing document: ", error);
                     });
 
+                    db.collection("profiles").doc(user.user.uid).set({
+                        name: this.name,
+                        createdAt: new Date()
+                    })
+                    .then(function() {
+                        console.log("Document successfully written!");                        
+                    })
+                    .catch(function(error) {
+                        console.error("Error writing document: ", error);
+                    });
+                    
                     this.$router.replace('admin/profile');
                 })
                 .catch(function(error) {

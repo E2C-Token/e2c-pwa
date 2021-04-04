@@ -8,7 +8,7 @@
             <div class="sidebar-content">
                 <!-- sidebar-brand  -->
                 <div class="sidebar-item sidebar-brand">
-                    <a href="#"> <img src="..\assets\icon_popUp_.png" width="42px"> Locavorize Produtor</a>
+                    <a href="#"> <img src="" width="42px"> E2C</a>
                     <div id="close-sidebar" @click="closeMenu">
                         <i class="fas fa-times"></i>
                     </div>
@@ -26,20 +26,8 @@
                             <span>Online</span>
                         </span>
                     </div>
-                </div>
-                <!-- sidebar-search  -->
-                <div class="sidebar-item sidebar-search">
-                    <div>
-                        <div class="input-group">
-                            <input type="text" class="form-control search-menu" placeholder="Search...">
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </div>                
+                
                 <!-- sidebar-menu  -->
                 <div class=" sidebar-item sidebar-menu">
                     <ul>
@@ -50,32 +38,32 @@
                         <li>
                             <router-link to="/admin/overview">
                                 <i class="fa fa-chart-line"></i>
-                                <span>Overview</span>
+                                <span>Painel</span>
                             </router-link>
                         </li>
                         <li>
                             <router-link to="/admin/products">
                                 <i class="fab fa-amazon"></i>
-                                <span>Products</span>
+                                <span>Transações</span>
                             </router-link>
                         </li>
                         <li>
                             <router-link to="/admin/orders">
                                 <i class="fa fa-shopping-cart"></i>
-                                <span>Orders</span>
+                                <span>Desejos de Acesso</span>
                             </router-link>
                         </li>
 
                         <li>
                             <router-link to="/admin/profile">
                                 <i class="fa fa-user"></i>
-                                <span>Profile</span>
+                                <span>Perfil</span>
                             </router-link>
                         </li>
                         <li>
                             <a href="#" @click="logout()">
                                 <i class="fa fa-power-off"></i>
-                                <span>Logout</span>
+                                <span>Sair</span>
                             </a>
                         </li>
                     </ul>
@@ -95,7 +83,7 @@
 
 <script>
 // @ is an alias to /src
-import Hero from "@/components/Hero.vue";
+
 import {fb} from '../firebase';
 
 export default {
@@ -105,9 +93,6 @@ export default {
           name:null,
           email:null,
       }
-  },
-  components: {
-    Hero
   },
   methods:{
       closeMenu(){

@@ -4,9 +4,9 @@
       <div class="intro h-100">
         <div class="row h-100 align-items-center">
           <div class="col-md-6 ml-3">
-            <h3>Profile settings</h3>
+            <h3>Editar perfil</h3>
             <p>
-              Change your profile settings here
+              Altere seus dados aqui
             </p>
           </div>
           <div class="col-md-5">
@@ -31,22 +31,9 @@
               role="tab"
               aria-controls="profile"
               aria-selected="true"
-              >Profile</a
+              >Perfil</a
             >
-          </li>
-
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              id="account-tab"
-              data-toggle="tab"
-              href="#account"
-              role="tab"
-              aria-controls="account"
-              aria-selected="false"
-              >Account settings</a
-            >
-          </li>
+          </li>          
         </ul>
 
         <div class="tab-content" id="myTabContent">
@@ -60,12 +47,11 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Name</label>
+                    <label>Nome</label>
                     <input
                       type="text"
                       name=""
-                      v-model="profile.name"
-                      placeholder="Full name"
+                      v-model="profile.name"                      
                       class="form-control"
                     />
                   </div>
@@ -73,12 +59,12 @@
 
                  <div class="col-md-8">
                   <div class="form-group">
-                    <label>Postcode</label>
+                    <label>Cep</label>
                     <input
                       type="text"
                       v-model="profile.postCode"
                       @blur="translateZipcode(profile.postCode)"
-                      placeholder="Postcode"
+                      
                       class="form-control"
                     />
                   </div>
@@ -86,11 +72,11 @@
 
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Phone</label>
+                    <label>Celular</label>
                     <input
                       type="text"
                       v-model="profile.phone"
-                      placeholder="Phone"
+                      
                       class="form-control"
                     />
                   </div>
@@ -98,11 +84,11 @@
 
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Address</label>
+                    <label>Endereço</label>
                     <input
                       type="text"
                       v-model="profile.address"
-                      placeholder="Address"
+                      
                       class="form-control"
                     />
                   </div>
@@ -110,11 +96,11 @@
 
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Neighborhood</label>
+                    <label>Bairro</label>
                     <input
                       type="text"
                       v-model="profile.neighborhood"                                            
-                      placeholder="Neighborhood"
+                      
                       class="form-control"
                     />
                   </div>
@@ -125,100 +111,14 @@
                     <input
                       type="submit"
                       @click="updateProfile"
-                      value="Save Changes"
+                      value="Salvar"
                       class="btn btn-primary w-100"
                     />
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div
-            class="tab-pane fade pt-3"
-            id="account"
-            role="tabpanel"
-            aria-labelledby="account-tab"
-          >
-            <div class="container">
-              <div class="row">
-                <div class="col-md-">
-                  <div class="alert alert-info">
-                    Please use the Reset password email button for reseting the
-                    password. The form doens't work currently
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Name</label>
-                    <input
-                      type="text"
-                      v-model="account.name"
-                      placeholder="User name"
-                      class="form-control"
-                    />
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Email</label>
-                    <input
-                      type="text"
-                      v-model="account.email"
-                      placeholder="Email address"
-                      class="form-control"
-                    />
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Password</label>
-                    <input
-                      type="text"
-                      v-model="account.password"
-                      placeholder="New password"
-                      class="form-control"
-                    />
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Confirm password</label>
-                    <input
-                      type="text"
-                      v-model="account.confirmPassword"
-                      placeholder="Confirm password"
-                      class="form-control"
-                    />
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <input
-                      type="file"
-                      @change="uploadImage"
-                      class="form-control"
-                    />
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <input
-                      type="submit"
-                      @click="saveChanges()"
-                      value="Save Changes"
-                      class="btn btn-primary w-100"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          </div>         
         </div>
       </div>
     </div>    
@@ -248,26 +148,16 @@ export default {
         phone: null,
         address: null,
         neighborhood: null,
-        postCode: null,
-        geolocation: {
-          lat: null,
-          lng: null
-        }
+        postCode: null
       },
-      cepResponse: null,
-
-      account: {
-        name: null,
-        email: null,
-        photoUrl: null,
-        emailVerified: null,
-        password: null,
-        confirmPassword: null,
-        uid: null,
-      },
+      cepResponse: [],     
     };
   },
-
+  computed: {
+    userProfile: function() {
+      return this.$store.state.userProfile;
+    }
+  },
   firestore() {
     const user = fb.auth().currentUser;
     return {
@@ -275,51 +165,23 @@ export default {
       //markers: db.collection("markers").doc()
     };
   },
-  methods: {   
-    
+  methods: {  
     translateZipcode() {      
       let postCode = this.profile.postCode
       let address = this.profile.address
       let cepResponse = axios.get('https://api.postmon.com.br/v1/cep/'+ `${postCode}`)
-      .then(response => (cepResponse = response.data))
+      .then(response => (this.cepResponse = response.data))
   
       /* Tratar os dados no retorno*/
+      console.log(cepResponse)   
       
-      console.log(cepResponse)
-      
-      
-    },
-
-    resetPassword() {
-      const auth = fb.auth();
-      auth
-        .sendPasswordResetEmail(auth.currentUser.email)
-        .then(() => {
-          Toast.fire({
-            type: "success",
-            title: "Email sent",
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-    
+    },    
     updateProfile() { 
        this.$firestore.profile.update(this.profile);     
-      //alert("Perfil atualizado");
-      //this.$router.replace("products");
-      let address = profile.address
-      let neighborhood = profile.neighborhood 
-      axios.post("https://maps.googleapis.com/maps/api/geocode/json?address={{this.address}}+{{this.neighborhood}}+BR&key=AIzaSyC9Sbj0ipn36mn0cEEtg2czKa7oe8dqKk0")
-      .then(res => {         
-        let geolocation = res.data.results[0].geometry.location
-        console.log(geolocation)      
-                
-      });      
+      alert("Perfil atualizado");
+      this.$router.replace("products");           
     },    
-  },
-  created() {},
+  }
 };
 </script>
 

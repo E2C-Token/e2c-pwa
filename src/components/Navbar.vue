@@ -4,7 +4,8 @@
      <div class="container">
        
         <router-link class="navbar-brand" to="/">
-        <img src="..\assets\default_image.png" width="150px">
+        <!-- <img src="..\assets\default_image.png" width="150px"> -->
+        <h3>E2C</h3>
         
         </router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,20 +18,16 @@
               <router-link to="/" class="nav-link">Home</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/products" class="nav-link" href="#products">Products</router-link>
+              <router-link to="/products" class="nav-link" href="#products">Experiências</router-link>
             </li>
 
             <li class="nav-item">
-              <router-link to="/about" class="nav-link" href="#">About</router-link>
+              <router-link to="/about" class="nav-link" href="#">Sobre</router-link>
             </li>
           
           </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <a class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#login">Login</a>
-            <a class="btn btn-outline-info border-0 mx-2 my-2 my-sm-0" data-toggle="modal" data-target="#miniCart">
-              <i class="fas fa-cart-plus"></i>
-            </a>
+          <form class="form-inline my-2 my-lg-0">            
+            <a class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#login">Login</a>            
           </form>
         </div>
 
