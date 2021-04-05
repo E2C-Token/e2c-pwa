@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Transações</h3>
+    <h3>Ações sofridas</h3>
     <ReceivedActionsTable />
   </div>
 </template>
