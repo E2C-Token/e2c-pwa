@@ -3,7 +3,7 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Admin from "./views/Admin.vue";
 import Overview from "./views/Overview.vue";
-import Products from "./views/Products.vue";
+import Transactions from "./views/Transactions.vue";
 import Orders from "./views/Orders.vue";
 import Profile from "./views/Profile.vue";
 import {fb} from './firebase'
@@ -31,9 +31,9 @@ const router =  new Router({
           component: Overview
         },
         {
-          path: "products",
-          name: "products",
-          component: Products
+          path: "transactions",
+          name: "transactions",
+          component: Transactions
         },
         {
           path: "profile",

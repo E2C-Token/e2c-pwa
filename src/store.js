@@ -32,6 +32,7 @@ fb.tokensE2CCollection.onSnapshot((snapshot) => {
   store.commit("setTokens", tokensArray);
 });
 
+
 fb.transactions.orderBy("createdAt", "desc").onSnapshot((snapshot) => {
   let transactionsArray = [];
 
