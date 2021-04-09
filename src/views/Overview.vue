@@ -5,10 +5,7 @@
         <div class="col-sm">                 
           <EmmitTokens />
        
-        </div>
-        <div class="col-sm">
-          
-        </div>
+        </div>       
         <div class="col-sm">
           <IntentionLiquidate />
         </div>

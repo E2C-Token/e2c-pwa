@@ -97,7 +97,7 @@ export default {
           fb.auth().signInWithEmailAndPassword(this.email, this.password)
                         .then(() => {
                         $('#login').modal('hide')
-                          this.$router.replace('admin/products');  
+                          this.$router.replace('admin/transactions');  
                         })
                         .catch(function(error) {
                             // Handle Errors here.
