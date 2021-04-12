@@ -51,13 +51,19 @@
                 </router-link>
               </li>
               <li>
+                <router-link to="/admin/avaiable">
+                  <i class="fa fa-chart-line"></i>
+                  <span>Disponível</span>
+                </router-link>
+              </li>
+              <li>
                 <router-link to="/admin/transactions">
                   <i class="fab fa-amazon"></i>
                   <span>Transações</span>
                 </router-link>
               </li>
               <li>
-                <router-link to="/admin/orders">
+                <router-link to="/admin/wishAccess">
                   <i class="fa fa-shopping-cart"></i>
                   <span>Desejos de Acesso</span>
                 </router-link>

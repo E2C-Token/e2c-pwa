@@ -4,8 +4,9 @@ import Home from "./views/Home.vue";
 import Admin from "./views/Admin.vue";
 import Overview from "./views/Overview.vue";
 import Transactions from "./views/Transactions.vue";
-import Orders from "./views/Orders.vue";
+import WishAccess from "./views/WishAccess.vue";
 import Profile from "./views/Profile.vue";
+import Avaiable from "./views/Avaiable.vue";
 import {fb} from './firebase'
 
 Vue.use(Router);
@@ -41,9 +42,14 @@ const router =  new Router({
           component: Profile
         },
         {
-          path: "orders",
-          name: "orders",
-          component: Orders
+          path: "wishAccess",
+          name: "wishAccess",
+          component: WishAccess
+        },
+        {
+          path: "avaiable",
+          name: "avaiable",
+          component: Avaiable
         }
       ]
     },

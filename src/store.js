@@ -231,7 +231,8 @@ const store = new Vuex.Store({
         fromUid: fb.auth.currentUser.uid,  
         fromName: state.userProfile.name,
         title: payload.title,
-        description: payload.description       
+        description: payload.description,
+        completed: false       
       });
       alert("Desejo de acesso registrado");
     },
@@ -241,9 +242,10 @@ const store = new Vuex.Store({
         fromUid: fb.auth.currentUser.uid,  
         fromName: state.userProfile.name,
         title: payload.title,
-        description: payload.description    
+        description: payload.description,
+        active: true  
       });
-      alert("Disponivel pra usufruto comum registrado");
+      alert("Salvo com sucesso!");
     },
     async getTransactionDb({ commit }) {
       await fb.transactions.get();
