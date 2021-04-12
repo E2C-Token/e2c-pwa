@@ -216,7 +216,8 @@ const store = new Vuex.Store({
     async setLiquidateIntentionDb({ state, commit }, payload) {
       await fb.transactions.add({
         createdAt: new Date(),
-        fromUid: fb.auth.currentUser.uid,  
+        fromUid: fb.auth.currentUser.uid,
+        tokenId: payload.tokenId,  
         fromName: state.userProfile.name,
         toName: payload.toName,
         toUid: payload.toUid,
@@ -225,6 +226,11 @@ const store = new Vuex.Store({
       });
       alert("Um aviso de Intenção de Liquidação será enviado!");
     },
+    // async liquidateTokens(payload) {
+    //   await fb.tokensE2CCollection.doc(payload.tokenId).update(
+    //     amount: payload.amount;
+    //   )
+    // },
     async saveWishAccessDb({ state, commit }, payload) {
       await fb.allWishes.add({
         createdAt: new Date(),
@@ -280,7 +286,7 @@ const store = new Vuex.Store({
       fb.postsCollection.doc(post.id).update({
         likes: post.likesCount + 1,
       });
-    },
+    },           
     async updateProfile({ dispatch }, user) {
       const userId = fb.auth.currentUser.uid;
       // update user object
