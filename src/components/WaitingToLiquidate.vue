@@ -13,7 +13,7 @@
         <h4>{{ i.fromName }}</h4>
         <p>{{ i.description }}</p>
         <button
-          @click="liquidate(i)"
+          @click="infoToken(i)"
           type="button"
           class="btn btn-primary"
           data-toggle="modal"
@@ -46,8 +46,8 @@
             </button>
           </div>
           <div class="modal-body">
-            <label>Quantidade</label>
-            <input type="number" />
+            <label>Quantidade</label>            
+            <input type="number" v-model="amount"/>
           </div>
           <div class="modal-footer">
             <button
@@ -55,9 +55,9 @@
               class="btn btn-secondary"
               data-dismiss="modal"
             >
-              Close
+              Cancelar
             </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-primary" @click="liquidar()">Salvar</button>
           </div>
         </div>
       </div>
@@ -69,7 +69,9 @@ export default {
   name: "WaitingToLiquidate",
   data: function() {
     return {
-      user: {},      
+      user: {},
+      tokenInfo: null,
+      amount: null      
     };
   },
   computed: {
@@ -81,10 +83,17 @@ export default {
     },
   },
   methods: {
-    liquidate(i) {
-      let payload = i;
-      console.log("liquidar", payload);
+    infoToken(i) {     
+      this.tokenInfo = i;
+      // console.log("liquidar", this.tokenInfo);
     },
+    liquidar() {
+      let payload = {
+        tokenId: this.tokenInfo.tokenId,
+        amount: this.amount
+      }      
+      this.$store.dispatch("liquidateTokens", payload); 
+    }
   },
 };
 </script>

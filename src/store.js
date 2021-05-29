@@ -18,7 +18,7 @@ fb.postsCollection.orderBy("createdOn", "desc").onSnapshot((snapshot) => {
 
   store.commit("setPosts", postsArray);
 });
-
+// All Tokens
 fb.tokensE2CCollection.onSnapshot((snapshot) => {
   let tokensArray = [];
 
@@ -31,7 +31,6 @@ fb.tokensE2CCollection.onSnapshot((snapshot) => {
 
   store.commit("setTokens", tokensArray);
 });
-
 
 fb.transactions.orderBy("createdAt", "desc").onSnapshot((snapshot) => {
   let transactionsArray = [];
@@ -57,6 +56,20 @@ fb.usersCollection.orderBy("name", "desc").onSnapshot((snapshot) => {
   });
 
   store.commit("setUsers", usersArray);
+});
+
+// My Tokens
+fb.tokensE2CCollection.where("uid", "==", "9jMCoeFTDihB8eD4c9QpQIuHr5Z2").onSnapshot((snapshot) => {
+  let myTokensArray = [];
+
+  snapshot.forEach((doc) => {
+    let token = doc.data();
+    token.id = doc.id;
+
+    myTokensArray.push(token);
+  });
+
+  store.commit("setMyTokens", myTokensArray);
 });
 
 fb.allWishes.onSnapshot((snapshot=>{
@@ -226,11 +239,18 @@ const store = new Vuex.Store({
       });
       alert("Um aviso de Intenção de Liquidação será enviado!");
     },
-    // async liquidateTokens(payload) {
-    //   await fb.tokensE2CCollection.doc(payload.tokenId).update(
-    //     amount: payload.amount;
-    //   )
-    // },
+    async liquidateTokens({ state, commit }, payload) {
+      // update token amount
+      const tokenDoc = await fb.tokensE2CCollection
+        .where("id", "==", payload.tokenId)
+        .get();        
+        tokenDoc.forEach((doc) => {
+        fb.tokensE2CCollection.doc(doc.id).update({
+          amount: payload.amount,
+        });
+      });
+      alert("Feito!");
+    },
     async saveWishAccessDb({ state, commit }, payload) {
       await fb.allWishes.add({
         createdAt: new Date(),
