@@ -21,6 +21,20 @@ fb.tokensE2CCollection.onSnapshot((snapshot) => {
   store.commit("setTokens", tokensArray);
 });
 
+// Intentions Liquidation
+fb.intentionLiquidation.onSnapshot((snapshot) => {
+  let liquidationArray = [];
+
+  snapshot.forEach((doc) => {
+    let token = doc.data();
+    token.id = doc.id;
+
+    liquidationArray.push(token);
+  });
+
+  store.commit("setIntentionsLiquidation", liquidationArray);
+});
+
 fb.usersCollection.orderBy("name", "desc").onSnapshot((snapshot) => {
   let usersArray = [];
 
@@ -83,6 +97,7 @@ const store = new Vuex.Store({
     myTokens: [],
     allWishes: [],
     avaiable: [],
+    intentionLiquidation: [],
   },
   mutations: {
     setUserProfile(state, val) {
@@ -106,6 +121,9 @@ const store = new Vuex.Store({
     setAvaiable(state, val) {
       state.avaiable = val;
     },
+    setIntentionsLiquidation(state, val) {
+      state.intentionLiquidation = val;
+    }
   },
   actions: {
     async login({ dispatch }, form) {
@@ -157,7 +175,7 @@ const store = new Vuex.Store({
       // redirect to login view
       router.push("/login");
     },
-    async emmitTokensAndTransactionDb({ state, commit }, payload) {
+    async emmitTokens({ state, commit }, payload) {
       await fb.tokensE2CCollection.add({
         createdAt: new Date(),
         amount: payload.amount,
@@ -186,7 +204,7 @@ const store = new Vuex.Store({
       const tokenDoc = payload.tokenId;
       const initialAmount = payload.initialAmount;
       let subtraction = initialAmount - payload.amount;        
-        fb.tokensE2CCollection.doc(tokenDoc).update({
+        await fb.tokensE2CCollection.doc(tokenDoc).update({
           amount: subtraction,
         });
       
@@ -214,13 +232,13 @@ const store = new Vuex.Store({
       });
       alert("Salvo com sucesso!");
     },
-    async getTransactionDb({ commit }) {
-      await fb.transactions.get();
-      const transactions = await fb.transactions.get();
+    // async getTransactionDb({ commit }) {
+    //   await fb.transactions.get();
+    //   const transactions = await fb.transactions.get();
 
-      // set user profile in state
-      commit("setTransactions", transactions.data());
-    },
+    //   // set user profile in state
+    //   commit("setTransactions", transactions.data());
+    // },
     async fetchUsers({ commit }) {
       await fb.usersCollection.get();
       const users = await fb.usersCollection.get();

@@ -2,7 +2,7 @@
   <div>
     <div
       class="card"
-      v-for="(i, index) in tokens"
+      v-for="(i, index) in intentions"
       :key="index"
       :value="i"
     >
@@ -70,11 +70,14 @@ export default {
   data: function() {
     return {
       user: {},
-      tokenInfo: null,
+      tokenId: null,
       initialAmount: null,
       amount: null      
     };
   },
+  // mounted() {
+  //   this.getAmount();
+  // },
   computed: {
     tokens: function() {
       return this.$store.state.tokens;
@@ -82,21 +85,23 @@ export default {
     userProfile: function() {
       return this.$store.state.userProfile;
     },
+    intentions: function() {
+      return this.$store.state.intentionLiquidation;
+    }
   },
   methods: {
     infoToken(i) {     
-      this.tokenInfo = i.id;
-      this.initialAmount = i.amount;
-      //console.log("liquidar", this.tokenInfo);
+      this.tokenId = i.tokenId;            
+      console.log("liquidar", this.tokenId);      
     },
     liquidar() {
       let payload = {
-        tokenId: this.tokenInfo,
+        tokenId: this.tokenId,
         initialAmount: this.initialAmount,
         amount: this.amount
       }      
       this.$store.dispatch("liquidateTokens", payload); 
-    }
+    }, 
   },
 };
 </script>
