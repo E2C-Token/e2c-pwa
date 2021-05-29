@@ -4,17 +4,63 @@
       class="card"
       v-for="(i, index) in transactions"
       :key="index"
-      :value="i">
-       
-          <div
-            class="card-item"
-            @click="liquidate(i)"
-            v-if="i.toUid == userProfile.uid && i.type == 'intenção-liquidação'"
-          >
-            <h4>{{ i.fromName }}</h4>
-            <p>{{ i.description }}</p>
+      :value="i"
+    >
+      <div
+        class="card-item"
+        v-if="i.toUid == userProfile.uid && i.type == 'intenção-liquidação'"
+      >
+        <h4>{{ i.fromName }}</h4>
+        <p>{{ i.description }}</p>
+        <button
+          @click="liquidate(i)"
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#exampleModal"
+        >
+          Liquidar
+        </button>
+      </div>
+    </div>
+    
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Liquidar quantos tokens?</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-             
+          <div class="modal-body">
+            <label>Quantidade</label>
+            <input type="number" />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -23,7 +69,7 @@ export default {
   name: "WaitingToLiquidate",
   data: function() {
     return {
-      user: {},
+      user: {},      
     };
   },
   computed: {
