@@ -71,6 +71,7 @@ export default {
     return {
       user: {},
       tokenInfo: null,
+      initialAmount: null,
       amount: null      
     };
   },
@@ -84,12 +85,14 @@ export default {
   },
   methods: {
     infoToken(i) {     
-      this.tokenInfo = i;
-      // console.log("liquidar", this.tokenInfo);
+      this.tokenInfo = i.id;
+      this.initialAmount = i.amount;
+      //console.log("liquidar", this.tokenInfo);
     },
     liquidar() {
       let payload = {
-        tokenId: this.tokenInfo.tokenId,
+        tokenId: this.tokenInfo,
+        initialAmount: this.initialAmount,
         amount: this.amount
       }      
       this.$store.dispatch("liquidateTokens", payload); 

@@ -183,15 +183,14 @@ const store = new Vuex.Store({
     },
     async liquidateTokens({ state, commit }, payload) {
       // update token amount
-      const tokenDoc = await fb.tokensE2CCollection
-        .where("id", "==", payload.tokenId)
-        .get();
-      tokenDoc.forEach((doc) => {
-        fb.tokensE2CCollection.doc(doc.id).update({
-          amount: payload.amount,
+      const tokenDoc = payload.tokenId;
+      const initialAmount = payload.initialAmount;
+      let subtraction = initialAmount - payload.amount;        
+        fb.tokensE2CCollection.doc(tokenDoc).update({
+          amount: subtraction,
         });
-      });
-      alert("Feito!");
+      
+      alert("Liquidação concluída!");
     },
     async saveWishAccessDb({ state, commit }, payload) {
       await fb.allWishes.add({
