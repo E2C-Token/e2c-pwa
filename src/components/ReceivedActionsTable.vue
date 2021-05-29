@@ -9,7 +9,7 @@
         </tr>
       </thead>
       <tbody>        
-          <tr v-for="(i, index) in transactions" :key="index" v-if="i.toUid == userProfile.uid && i.type == 'emissão'">            
+          <tr v-for="(i, index) in tokens" :key="index" v-if="i.uid == userProfile.uid">            
               <td>{{ i.amount }}</td>
               <td>{{ i.fromName }}</td>
               <td>{{ i.description }}</td>            
@@ -23,8 +23,8 @@
 export default {
   name: "ReceivedActionsTable",
   computed: {
-    transactions: function() {
-      return this.$store.state.transactions;
+    tokens: function() {
+      return this.$store.state.tokens;
     },
     userProfile: function() {
       return this.$store.state.userProfile;

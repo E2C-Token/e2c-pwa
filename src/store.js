@@ -6,18 +6,7 @@ import router from "./router";
 Vue.use(Vuex);
 
 // realtime firebase
-fb.postsCollection.orderBy("createdOn", "desc").onSnapshot((snapshot) => {
-  let postsArray = [];
 
-  snapshot.forEach((doc) => {
-    let post = doc.data();
-    post.id = doc.id;
-
-    postsArray.push(post);
-  });
-
-  store.commit("setPosts", postsArray);
-});
 // All Tokens
 fb.tokensE2CCollection.onSnapshot((snapshot) => {
   let tokensArray = [];
@@ -30,19 +19,6 @@ fb.tokensE2CCollection.onSnapshot((snapshot) => {
   });
 
   store.commit("setTokens", tokensArray);
-});
-
-fb.transactions.orderBy("createdAt", "desc").onSnapshot((snapshot) => {
-  let transactionsArray = [];
-
-  snapshot.forEach((doc) => {
-    let transaction = doc.data();
-    transaction.id = doc.id;
-
-    transactionsArray.push(transaction);
-  });
-
-  store.commit("setTransactions", transactionsArray);
 });
 
 fb.usersCollection.orderBy("name", "desc").onSnapshot((snapshot) => {
@@ -59,20 +35,22 @@ fb.usersCollection.orderBy("name", "desc").onSnapshot((snapshot) => {
 });
 
 // My Tokens
-fb.tokensE2CCollection.where("uid", "==", "9jMCoeFTDihB8eD4c9QpQIuHr5Z2").onSnapshot((snapshot) => {
-  let myTokensArray = [];
+fb.tokensE2CCollection
+  .where("uid", "==", "9jMCoeFTDihB8eD4c9QpQIuHr5Z2")
+  .onSnapshot((snapshot) => {
+    let myTokensArray = [];
 
-  snapshot.forEach((doc) => {
-    let token = doc.data();
-    token.id = doc.id;
+    snapshot.forEach((doc) => {
+      let token = doc.data();
+      token.id = doc.id;
 
-    myTokensArray.push(token);
+      myTokensArray.push(token);
+    });
+
+    store.commit("setMyTokens", myTokensArray);
   });
 
-  store.commit("setMyTokens", myTokensArray);
-});
-
-fb.allWishes.onSnapshot((snapshot=>{
+fb.allWishes.onSnapshot((snapshot) => {
   let wishesArray = [];
 
   snapshot.forEach((doc) => {
@@ -82,9 +60,9 @@ fb.allWishes.onSnapshot((snapshot=>{
     wishesArray.push(wish);
   });
 
-  store.commit("setAllWishes", wishesArray);  
-}));
-fb.avaiable.onSnapshot((snapshot=>{
+  store.commit("setAllWishes", wishesArray);
+});
+fb.avaiable.onSnapshot((snapshot) => {
   let avaiableArray = [];
 
   snapshot.forEach((doc) => {
@@ -94,19 +72,17 @@ fb.avaiable.onSnapshot((snapshot=>{
     avaiableArray.push(avaiable);
   });
 
-  store.commit("setAvaiable", avaiableArray);  
-}));
+  store.commit("setAvaiable", avaiableArray);
+});
 
 const store = new Vuex.Store({
   state: {
     userProfile: {},
-    posts: [],
-    transactions: [],
     users: [],
     tokens: [],
     myTokens: [],
     allWishes: [],
-    avaiable: []
+    avaiable: [],
   },
   mutations: {
     setUserProfile(state, val) {
@@ -114,12 +90,6 @@ const store = new Vuex.Store({
     },
     setPerformingRequest(state, val) {
       state.performingRequest = val;
-    },
-    setPosts(state, val) {
-      state.posts = val;
-    },
-    setTransactions(state, val) {
-      state.transactions = val;
     },
     setUsers(state, val) {
       state.users = val;
@@ -135,7 +105,7 @@ const store = new Vuex.Store({
     },
     setAvaiable(state, val) {
       state.avaiable = val;
-    }
+    },
   },
   actions: {
     async login({ dispatch }, form) {
@@ -159,11 +129,11 @@ const store = new Vuex.Store({
       await fb.usersCollection.doc(user.uid).set({
         name: form.name,
         title: form.title,
-        uid: user.uid
+        uid: user.uid,
       });
 
       // fetch user profile and set in state
-      await dispatch("fetchUserProfile", user);  
+      await dispatch("fetchUserProfile", user);
     },
     async fetchUserProfile({ commit }, user) {
       // fetch user profile
@@ -176,7 +146,6 @@ const store = new Vuex.Store({
       if (router.currentRoute.path === "/login") {
         router.push("/painel");
       }
-      
     },
     async logout({ commit }) {
       // log user out
@@ -188,54 +157,27 @@ const store = new Vuex.Store({
       // redirect to login view
       router.push("/login");
     },
-    async createPost({ state, commit }, post) {
-      // create post in firebase
-      await fb.postsCollection.add({
-        createdOn: new Date(),
-        content: post.content,
-        userId: fb.auth.currentUser.uid,
-        userName: state.userProfile.name,
-        comments: 0,
-        likes: 0,
-      });
-    },
     async emmitTokensAndTransactionDb({ state, commit }, payload) {
-      await fb.transactions
-        .add({
-          createdAt: new Date(),
-          amount: payload.amount,
-          fromUid: fb.auth.currentUser.uid,
-          toUid: payload.toUid,
-          fromName: state.userProfile.name,
-          toName: payload.toName,
-          description: payload.description,
-          type: "emissão",
-        })
-        .then(
-          await fb.tokensE2CCollection.add({
-            createdAt: new Date(),
-            amount: payload.amount,
-            fromUid: fb.auth.currentUser.uid,
-            fromName: state.userProfile.name,
-            uid: payload.toUid,
-            ownerName: payload.toName,
-            description: payload.description,  
-            liquidated: false
-          })
-        );
-
+      await fb.tokensE2CCollection.add({
+        createdAt: new Date(),
+        amount: payload.amount,
+        fromUid: fb.auth.currentUser.uid,
+        fromName: state.userProfile.name,
+        uid: payload.toUid,
+        ownerName: payload.toName,
+        description: payload.description
+      });
       alert("Salvo com sucesso");
     },
     async setLiquidateIntentionDb({ state, commit }, payload) {
-      await fb.transactions.add({
+      await fb.intentionLiquidation.add({
         createdAt: new Date(),
         fromUid: fb.auth.currentUser.uid,
-        tokenId: payload.tokenId,  
+        tokenId: payload.tokenId,
         fromName: state.userProfile.name,
         toName: payload.toName,
         toUid: payload.toUid,
         description: payload.description,
-        type: "intenção-liquidação",
       });
       alert("Um aviso de Intenção de Liquidação será enviado!");
     },
@@ -243,8 +185,8 @@ const store = new Vuex.Store({
       // update token amount
       const tokenDoc = await fb.tokensE2CCollection
         .where("id", "==", payload.tokenId)
-        .get();        
-        tokenDoc.forEach((doc) => {
+        .get();
+      tokenDoc.forEach((doc) => {
         fb.tokensE2CCollection.doc(doc.id).update({
           amount: payload.amount,
         });
@@ -254,22 +196,22 @@ const store = new Vuex.Store({
     async saveWishAccessDb({ state, commit }, payload) {
       await fb.allWishes.add({
         createdAt: new Date(),
-        fromUid: fb.auth.currentUser.uid,  
+        fromUid: fb.auth.currentUser.uid,
         fromName: state.userProfile.name,
         title: payload.title,
         description: payload.description,
-        completed: false       
+        completed: false,
       });
       alert("Desejo de acesso registrado");
     },
     async saveAvaiableDb({ state, commit }, payload) {
       await fb.avaiable.add({
         createdAt: new Date(),
-        fromUid: fb.auth.currentUser.uid,  
+        fromUid: fb.auth.currentUser.uid,
         fromName: state.userProfile.name,
         title: payload.title,
         description: payload.description,
-        active: true  
+        active: true,
       });
       alert("Salvo com sucesso!");
     },
@@ -286,27 +228,6 @@ const store = new Vuex.Store({
       // set users in state
       commit("setUsers", users.data());
     },
-    async likePost({ commit }, post) {
-      const userId = fb.auth.currentUser.uid;
-      const docId = `${userId}_${post.id}`;
-
-      // check if user has liked post
-      const doc = await fb.likesCollection.doc(docId).get();
-      if (doc.exists) {
-        return;
-      }
-
-      // create post
-      await fb.likesCollection.doc(docId).set({
-        postId: post.id,
-        userId: userId,
-      });
-
-      // update post likes count
-      fb.postsCollection.doc(post.id).update({
-        likes: post.likesCount + 1,
-      });
-    },           
     async updateProfile({ dispatch }, user) {
       const userId = fb.auth.currentUser.uid;
       // update user object
@@ -316,27 +237,7 @@ const store = new Vuex.Store({
       });
 
       dispatch("fetchUserProfile", { uid: userId });
-
-      // update all posts by user
-      const postDocs = await fb.postsCollection
-        .where("userId", "==", userId)
-        .get();
-      postDocs.forEach((doc) => {
-        fb.postsCollection.doc(doc.id).update({
-          userName: user.name,
-        });
-      });
-
-      // update all comments by user
-      const commentDocs = await fb.commentsCollection
-        .where("userId", "==", userId)
-        .get();
-      commentDocs.forEach((doc) => {
-        fb.commentsCollection.doc(doc.id).update({
-          userName: user.name,
-        });
-      });
-    }    
+    },
   },
 });
 

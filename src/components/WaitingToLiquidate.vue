@@ -2,13 +2,13 @@
   <div>
     <div
       class="card"
-      v-for="(i, index) in transactions"
+      v-for="(i, index) in tokens"
       :key="index"
       :value="i"
     >
       <div
         class="card-item"
-        v-if="i.toUid == userProfile.uid && i.type == 'intenção-liquidação'"
+        
       >
         <h4>{{ i.fromName }}</h4>
         <p>{{ i.description }}</p>
@@ -75,8 +75,8 @@ export default {
     };
   },
   computed: {
-    transactions: function() {
-      return this.$store.state.transactions;
+    tokens: function() {
+      return this.$store.state.tokens;
     },
     userProfile: function() {
       return this.$store.state.userProfile;
