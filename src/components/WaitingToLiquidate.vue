@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3>Notificações de Intenção de Liquidação</h3>
     <div
       class="card"
       v-for="(i, index) in intentions"
@@ -100,7 +101,8 @@ export default {
         initialAmount: this.initialAmount,
         amount: this.amount
       }      
-      this.$store.dispatch("liquidateTokens", payload); 
+      this.$store.dispatch("liquidateTokens", payload);
+      
     }, 
   },
 };

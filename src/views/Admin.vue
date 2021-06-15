@@ -47,7 +47,7 @@
               <li>
                 <router-link to="/admin/overview">
                   <i class="fa fa-chart-line"></i>
-                  <span>Painel</span>
+                  <span>Experiências</span>
                 </router-link>
               </li>
               <li>
@@ -59,7 +59,7 @@
               <li>
                 <router-link to="/admin/transactions">
                   <i class="fab fa-amazon"></i>
-                  <span>Transações</span>
+                  <span>Painel</span>
                 </router-link>
               </li>
               <li>
