@@ -1,7 +1,7 @@
 <template>
   <div>
       <h3>Disponível para usufruto comum</h3>
-    <table class="table table-hover">
+    <table class="table table">
       <thead>
         <tr>          
           <th scope="col">Nome</th>

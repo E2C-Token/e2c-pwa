@@ -1,9 +1,9 @@
 <template>
   <div class="overview">
     <div class="container">
-      <div>
+      <!-- <div>
         <AllEmissions />
-      </div>
+      </div> -->
       <div>      
         <ReceivedActionsTable />
       </div>
@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-import AllEmissions from "../components/AllEmissions"
+// import AllEmissions from "../components/AllEmissions"
 import ReceivedActionsTable from "../components/ReceivedActionsTable"
 import EmissionsToLiquidate from "../components/EmissionsToLiquidate"
 export default {
@@ -23,7 +23,7 @@ export default {
     msg: String,
   },
   components: { 
-    AllEmissions,
+    //AllEmissions,
     ReceivedActionsTable,
     EmissionsToLiquidate
   },
