@@ -7,7 +7,7 @@ Vue.use(Vuex);
 
 // realtime firebase
 
-// All Tokens
+// All Emissions
 fb.emissions.onSnapshot((snapshot) => {
   let tokensArray = [];
 
@@ -18,7 +18,7 @@ fb.emissions.onSnapshot((snapshot) => {
     tokensArray.push(token);
   });
 
-  store.commit("setTokens", tokensArray);
+  store.commit("setAllEmissions", tokensArray);
 });
 
 // Intentions Liquidation
@@ -94,6 +94,7 @@ const store = new Vuex.Store({
     userProfile: {},
     users: [],
     tokens: [],
+    allEmissions: [],
     myTokens: [],
     allWishes: [],
     avaiable: [],
@@ -108,9 +109,12 @@ const store = new Vuex.Store({
     },
     setUsers(state, val) {
       state.users = val;
-    },
+    },    
     setTokens(state, val) {
       state.tokens = val;
+    },
+    setAllEmissions(state, val) {
+      state.allEmissions = val;
     },
     setMyTokens(state, val) {
       state.myTokens = val;
@@ -188,7 +192,6 @@ const store = new Vuex.Store({
           amount: payload.amount,
           fromUid: fb.auth.currentUser.uid,
           fromName: state.userProfile.name,
-          uid: payload.toUid,
           description: payload.description,
           tokenId: tokenId,          
           amount: payload.amount,          

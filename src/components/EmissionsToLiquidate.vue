@@ -11,7 +11,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(i, index) in allTokens" :key="index" @click="openModal(i)" :v-model="selected" v-if="i.uid != currentUserId">
+        <tr v-for="(i, index) in allEmissions" :key="index" @click="openModal()" :v-model="selected" :value="i">
           <td>{{ i.ownerName }}</td>
           <td>{{ i.fromName }}</td>
           <td>{{ i.description }}</td>          
@@ -72,8 +72,8 @@ export default {
     }
   }, 
   computed: {
-    allTokens: function() {
-      return this.$store.state.tokens;
+    allEmissions: function() {
+      return this.$store.state.allEmissions;
     },
     currentUserId: function() {
       return this.$store.state.userProfile.uid;
