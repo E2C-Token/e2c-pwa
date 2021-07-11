@@ -4,34 +4,30 @@
       <div>
         <AllEmissions />
       </div>
-      <div class="row">
-        <div class="col-sm">
-          <EmmitTokens />
-        </div>
-        <!-- <div class="col-sm">
-          <IntentionLiquidate />
-        </div> -->
+      <div>      
+        <ReceivedActionsTable />
       </div>
+      <div>
+        <EmissionsToLiquidate />
+      </div>      
     </div>
   </div>
 </template>
-
 <script>
-import EmmitTokens from "../components/EmmitTokens";
-// import IntentionLiquidate from "../components/IntentionLiquidate";
 import AllEmissions from "../components/AllEmissions"
+import ReceivedActionsTable from "../components/ReceivedActionsTable"
+import EmissionsToLiquidate from "../components/EmissionsToLiquidate"
 export default {
   name: "Overview",
   props: {
     msg: String,
   },
-  components: {
-    EmmitTokens,
-    // IntentionLiquidate,
-    AllEmissions
+  components: { 
+    AllEmissions,
+    ReceivedActionsTable,
+    EmissionsToLiquidate
   },
 };
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss"></style>

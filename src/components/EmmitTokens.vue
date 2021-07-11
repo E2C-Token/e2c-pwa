@@ -87,7 +87,7 @@ export default {
           amount: this.amount,
           description: this.descricao,
         };
-        this.$store.dispatch("emmitTokens", payload);
+        this.$store.dispatch("emmitTransaction", payload);
         this.clearFields();
       } else {
         alert("Faltou preencher algum campo. Tente novamente");

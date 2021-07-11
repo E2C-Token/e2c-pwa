@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Notificações de Intenção de Liquidação</h3>
+    <h3>Querem liquidar para mim</h3>
     <div
       class="card"
       v-for="(i, index) in intentions"

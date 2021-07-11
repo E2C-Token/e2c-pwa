@@ -8,7 +8,7 @@ Vue.use(Vuex);
 // realtime firebase
 
 // All Tokens
-fb.tokensE2CCollection.onSnapshot((snapshot) => {
+fb.emissions.onSnapshot((snapshot) => {
   let tokensArray = [];
 
   snapshot.forEach((doc) => {
@@ -175,16 +175,28 @@ const store = new Vuex.Store({
       // redirect to login view
       router.push("/login");
     },
-    async emmitTokens({ state, commit }, payload) {
+    async emmitTransaction({ state, commit }, payload) {
       await fb.tokensE2CCollection.add({
-        createdAt: new Date(),
         amount: payload.amount,
-        fromUid: fb.auth.currentUser.uid,
-        fromName: state.userProfile.name,
         uid: payload.toUid,
-        ownerName: payload.toName,
-        description: payload.description
-      });
+        name: payload.toName        
+      })     
+      .then(docRef => {
+        const tokenId =  docRef.id;
+        fb.emissions.add({
+          createdAt: new Date(),
+          amount: payload.amount,
+          fromUid: fb.auth.currentUser.uid,
+          fromName: state.userProfile.name,
+          uid: payload.toUid,
+          description: payload.description,
+          tokenId: tokenId,          
+          amount: payload.amount,          
+          uid: payload.toUid,
+          ownerName: payload.toName
+        });         
+      })
+      .catch(error => console.error("Error adding document: ", error))
       alert("Salvo com sucesso");
     },
     async setLiquidateIntentionDb({ state, commit }, payload) {

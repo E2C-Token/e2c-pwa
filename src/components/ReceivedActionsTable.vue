@@ -1,38 +1,34 @@
 <template>
   <div>
-    <h3>Ações sofridas(Feed)</h3>
+    <h3>Emitidos para mim</h3>
     <table class="table table-hover">
       <thead>
         <tr>          
-          <th scope="col">Fui reconhecido / quantos E2C</th>
           <th scope="col">Quem reconheceu</th>
           <th scope="col">Descrição</th>
+          <th scope="col">E2C</th>
         </tr>
       </thead>
       <tbody>        
-          <tr v-for="(i, index) in myTokens" :key="index" v-if="i.uid == userProfile.uid">            
-              <td>{{ i.amount }}</td>
-              <td>{{ i.fromName }}</td>
-              <td>{{ i.description }}</td>                         
+          <tr v-for="(i, index) in tokens" :key="index" v-if="i.uid == userProfile.uid">           
+            <td>{{ i.fromName }}</td>
+            <td>{{ i.description }}</td>
+            <td>{{ i.amount }}</td>
           </tr>        
       </tbody>
     </table>
   </div>
 </template>
 <script>
-//import { db, fb } from "../firebase";
 export default {
   name: "ReceivedActionsTable",
   computed: {
-    myTokens: function() {
-      return this.$store.state.myTokens;
+    tokens: function() {
+      return this.$store.state.tokens;
     },
     userProfile: function() {
       return this.$store.state.userProfile;
-    },
-    intentions: function() {
-      return this.$store.state.intentionLiquidation;
     }
-  },
+  }
 };
 </script>
