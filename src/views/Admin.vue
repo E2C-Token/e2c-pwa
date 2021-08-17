@@ -46,31 +46,31 @@
 
               <li>
                 <router-link to="/admin/overview">
-                  <i class="fa fa-chart-line"></i>
+                  <i class="fas fa-bullhorn"></i>
                   <span>Experiências</span>
                 </router-link>
               </li>
               <li>
                 <router-link to="/admin/avaiable">
-                  <i class="fa fa-chart-line"></i>
+                  <i class="fas fa-share"></i>
                   <span>Disponível</span>
                 </router-link>
               </li>
               <li>
                 <router-link to="/admin/transactions">
-                  <i class="fab fa-amazon"></i>
+                  <i class="fas fa-hand-spock"></i>                  
                   <span>Emitir</span>
                 </router-link>
               </li>
               <li>
                 <router-link to="/admin/liquidate">
-                  <i class="fab fa-amazon"></i>
+                  <i class="fas fa-check-double"></i>
                   <span>Liquidar</span>
                 </router-link>
               </li>
               <li>
                 <router-link to="/admin/wishAccess">
-                  <i class="fa fa-shopping-cart"></i>
+                  <i class="far fa-laugh-beam"></i>
                   <span>Desejos de Acesso</span>
                 </router-link>
               </li>
