@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <h3>Você tem tokens para liquidar!</h3>     
+      <h3>Intenções de liquidação!</h3>     
       <div class="row">
         <div
           class="card ml-3 mr-3 mt-2 mb-2"
@@ -13,6 +13,8 @@
             class="card-item ml-3 mr-3 mt-2 mb-2"            
           >
             <h4>{{ i.fromName }}</h4>
+            <p>Quer liquidar tokens para você!</p>
+            <p><strong>Mensagem:</strong></p>
             <p>{{ i.description }}</p>                  
             <button
               @click="infoToken(i)"

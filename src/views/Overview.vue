@@ -3,11 +3,7 @@
     <div class="container">
       <div>
         <AllEmissions />
-      </div>
-      <!-- <div class="row">        
-       <WaitingToLiquidate />
-      </div> -->
-      
+      </div>     
     </div>
   </div>
 </template>
@@ -23,19 +19,7 @@ export default {
     intention() {
       return this.$store.state.intentionLiquidation;
     }
-  }
-  // data() {
-  //   return {
-  //     user: {},
-  //     intention: {}
-  //   }
-  // },
-  // mounted() {
-  //   this.user = this.state.userProfile;
-  //   console.log(this.user);
-  // }
+  }  
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss"></style>
