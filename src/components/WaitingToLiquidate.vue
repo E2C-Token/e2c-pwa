@@ -1,42 +1,44 @@
 <template>
-  <div>
-    <h3>Querem liquidar para mim</h3>
-    <div
-      class="card"
-      v-for="(i, index) in intentions"
-      :key="index"
-      :value="i"
-    >
-      <div
-        class="card-item"
-        
-      >
-        <h4>{{ i.fromName }}</h4>
-        <p>{{ i.description }}</p>
-        <button
-          @click="infoToken(i)"
-          type="button"
-          class="btn btn-primary"
-          data-toggle="modal"
-          data-target="#exampleModal"
+  <div class="container">
+    <div>
+      <h3>Você tem tokens para liquidar!</h3>     
+      <div class="row">
+        <div
+          class="card ml-3 mr-3 mt-2 mb-2"
+          v-for="(i, index) in intentions"
+          :key="index"
+          :value="i"
         >
-          Liquidar
-        </button>
+          <div
+            class="card-item ml-3 mr-3 mt-2 mb-2"            
+          >
+            <h4>{{ i.fromName }}</h4>
+            <p>{{ i.description }}</p>                  
+            <button
+              @click="infoToken(i)"
+              type="button"
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-target="#liquidationModal"
+            >
+              Aceitar
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-    
     <!-- Modal -->
     <div
       class="modal fade"
-      id="exampleModal"
+      id="liquidationModal"
       tabindex="-1"
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="liquidationModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Liquidar quantos tokens?</h5>
+            <h5 class="modal-title" id="liquidationModalLabel">Liquidar quantos tokens?</h5>            
             <button
               type="button"
               class="close"
@@ -47,7 +49,11 @@
             </button>
           </div>
           <div class="modal-body">
-            <label>Quantidade</label>            
+            <div>
+              <p>Token emitido por: {{ fromName }}</p>
+              <p>Descrição: {{ description }}</p>                          
+            </div>
+            <label>Quantidade a liquidar</label>            
             <input type="number" v-model="amount"/>
           </div>
           <div class="modal-footer">
@@ -58,8 +64,9 @@
             >
               Cancelar
             </button>
-            <button type="button" class="btn btn-primary" @click="liquidar()">Salvar</button>
+            <button type="button" class="btn btn-primary" @click="liquidar()">Salvar</button>          
           </div>
+          
         </div>
       </div>
     </div>
@@ -72,38 +79,45 @@ export default {
     return {
       user: {},
       tokenId: null,
-      initialAmount: null,
-      amount: null      
+      currentAmount: {},
+      amount: null,      
+      fromName: null,
+      description: null     
     };
-  },
-  // mounted() {
-  //   this.getAmount();
-  // },
+  },  
   computed: {
     tokens: function() {
       return this.$store.state.tokens;
-    },
-    userProfile: function() {
-      return this.$store.state.userProfile;
-    },
+    },    
     intentions: function() {
       return this.$store.state.intentionLiquidation;
-    }
+    },    
   },
   methods: {
     infoToken(i) {     
-      this.tokenId = i.tokenId;            
-      console.log("liquidar", this.tokenId);      
+      this.tokenId = i.emissionId;     
+      this.fromName = i.fromName;
+      this.description = i.description;
+      let emission = this.tokenId;
+      this.getAmount(emission);      
+    },
+    getAmount(emission) {
+      let selected = this.$store.state.tokens.filter( el => el.id == emission);
+      this.currentAmount = selected[0].currentAmount;      
     },
     liquidar() {
       let payload = {
         tokenId: this.tokenId,
-        initialAmount: this.initialAmount,
+        currentAmount: this.currentAmount,       
         amount: this.amount
       }      
       this.$store.dispatch("liquidateTokens", payload);
-      
-    }, 
+      this.clearAndHideModal();          
+    },
+    clearAndHideModal() {
+      this.amount = null;
+      $('#liquidationModal').modal('hide');
+    } 
   },
 };
 </script>

@@ -38,7 +38,7 @@
                   </thead>
 
                   <tbody>
-                      <tr v-for="product in myProducts">                        
+                      <tr v-for="(product, index) in myProducts" :key="index">                        
                         <td>                          
                           <img :src="product.images" alt="" width="80px">
                         </td>
@@ -107,7 +107,7 @@
                       <input type="text" @keyup.188="addTag" placeholder="Product tags" v-model="tag" class="form-control">
                       
                       <div  class="d-flex">
-                        <p v-for="tag in product.tags">
+                        <p v-for="(tag, index) in product.tags" :key="index">
                             <span class="p-1">{{tag}}</span>
                         </p>
 
@@ -121,7 +121,7 @@
                     </div>
 
                     <div class="form-group d-flex">
-                      <div class="p-1" v-for="(image, index) in product.images">
+                      <div class="p-1" v-for="(image, index) in product.images" :key="index">
                           <div class="img-wrapp">
                               <img :src="image" alt="" width="80px">
                               <span class="delete-img" @click="deleteImage(image,index)">X</span>
@@ -151,16 +151,11 @@
 import { fb, db} from '../firebase';
 
 export default {
-  name: "Products",
-  components: {
-    
-  },
+  name: "Products", 
   props: {
     msg: String
   },
-
-  data(){
-    
+  data(){    
     return {
         products: [],
         myProducts:[],
@@ -179,18 +174,14 @@ export default {
         tag: null
     }
   },
-
   firestore(){
     const user = fb.auth().currentUser;
-      return {
-        
+      return {        
         products: db.collection('products'),
-        myProducts: db.collection('products').where('uid', '==', user.uid)
-        
+        myProducts: db.collection('products').where('uid', '==', user.uid)  
       }
   },
   methods:{
-
     deleteImage(img,index){
 
       let image = fb.storage().refFromURL(img);
@@ -203,16 +194,11 @@ export default {
         // Uh-oh, an error occurred!
         console.log('an error occurred');
       });
-
     },
-
     addTag(){
-       this.product.tags.push(this.tag);
-       
-       
+       this.product.tags.push(this.tag);   
     },
     uploadImage(e){
-
       if(e.target.files[0]){
         
           let file = e.target.files[0];
@@ -232,16 +218,9 @@ export default {
             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
               this.product.images.push(downloadURL);
             });
-
           });
-
       }
-
-
-
-
     },
-
     reset(){
       this.product = {
           name:null,
@@ -253,12 +232,10 @@ export default {
           images:[]
       }
     },
-
     addNew(){
         this.modal = 'new';
         this.reset();
-        $('#product').modal('show');
-        
+        $('#product').modal('show');        
     },
     updateProduct(){
         this.$firestore.products.doc(this.product.id).update(this.product);
@@ -269,17 +246,12 @@ export default {
 
            $('#product').modal('hide');
     },
-
     editProduct(product){
       this.modal = 'edit';
       this.product = product;
       $('#product').modal('show');
     },
-
-
     deleteProduct(doc){
-
-
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -290,7 +262,6 @@ export default {
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.value) {
-
           this.$firestore.products.doc(doc.id).delete()
 
           Toast.fire({
@@ -299,8 +270,7 @@ export default {
           })        
         }
       })        
-    },
-    
+    },    
     addProduct(){
       var user = fb.auth().currentUser;      
       this.$firestore.products.add({
@@ -318,22 +288,16 @@ export default {
             type: 'success',
             title: 'Product created successfully'
           })
-
-      $('#product').modal('hide');
-      
-    }
-
-  
+      $('#product').modal('hide');      
+    }  
   },
   created(){
     var user = fb.auth().currentUser;
     this.uid = user.uid;
     this.email = user.email;
-
   }
 };
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 

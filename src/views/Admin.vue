@@ -59,7 +59,13 @@
               <li>
                 <router-link to="/admin/transactions">
                   <i class="fab fa-amazon"></i>
-                  <span>Painel</span>
+                  <span>Emitir</span>
+                </router-link>
+              </li>
+              <li>
+                <router-link to="/admin/liquidate">
+                  <i class="fab fa-amazon"></i>
+                  <span>Liquidar</span>
                 </router-link>
               </li>
               <li>

@@ -2,7 +2,6 @@
 node_modules
 /dist
 src/firebase.js
-src/firebase-example.js
 
 # local env files
 .env.local

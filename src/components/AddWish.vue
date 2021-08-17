@@ -1,11 +1,38 @@
 <template>
-    <div>
-        <h3>Adicionar Desejo de Acesso</h3>
-        <label>Título</label>
-        <input type="text" v-model="title">
-        <label>Deseja acessar</label>
-        <textarea cols="30" rows="6" v-model="description"></textarea>
-        <button @click="save">Salvar</button>
+    <div class="container">
+        <div class="row mb-3">
+            <h3>Adicionar Desejo de Acesso</h3>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="addWish">Título</label>
+                </div>
+                <input
+                    v-model="title"
+                    type="text"
+                    class="form-control"
+                    aria-label="O que você deseja acessar..."
+                    />
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Descrição</span>
+                </div>
+                <textarea
+                    v-model="description"
+                    class="form-control"
+                    aria-label="With textarea"
+                ></textarea>
+            </div>
+            <div>
+                <button
+                type="button"
+                class="btn btn-primary btn-sm"
+                @click="save()"
+                >
+                Salvar
+                </button>
+            </div>
+        </div>        
     </div>
 </template>
 <script>

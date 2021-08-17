@@ -7,7 +7,7 @@ Vue.use(Vuex);
 
 // realtime firebase
 
-// All Emissions
+// All Tokens
 fb.emissions.onSnapshot((snapshot) => {
   let tokensArray = [];
 
@@ -18,7 +18,7 @@ fb.emissions.onSnapshot((snapshot) => {
     tokensArray.push(token);
   });
 
-  store.commit("setAllEmissions", tokensArray);
+  store.commit("setTokens", tokensArray);
 });
 
 // Intentions Liquidation
@@ -34,7 +34,7 @@ fb.intentionLiquidation.onSnapshot((snapshot) => {
 
   store.commit("setIntentionsLiquidation", liquidationArray);
 });
-
+// All Users
 fb.usersCollection.orderBy("name", "desc").onSnapshot((snapshot) => {
   let usersArray = [];
 
@@ -47,23 +47,7 @@ fb.usersCollection.orderBy("name", "desc").onSnapshot((snapshot) => {
 
   store.commit("setUsers", usersArray);
 });
-
-// My Tokens
-fb.tokensE2CCollection
-  .where("uid", "==", "9jMCoeFTDihB8eD4c9QpQIuHr5Z2")
-  .onSnapshot((snapshot) => {
-    let myTokensArray = [];
-
-    snapshot.forEach((doc) => {
-      let token = doc.data();
-      token.id = doc.id;
-
-      myTokensArray.push(token);
-    });
-
-    store.commit("setMyTokens", myTokensArray);
-  });
-
+// All Wishes
 fb.allWishes.onSnapshot((snapshot) => {
   let wishesArray = [];
 
@@ -76,6 +60,7 @@ fb.allWishes.onSnapshot((snapshot) => {
 
   store.commit("setAllWishes", wishesArray);
 });
+// All Avaiable
 fb.avaiable.onSnapshot((snapshot) => {
   let avaiableArray = [];
 
@@ -94,8 +79,8 @@ const store = new Vuex.Store({
     userProfile: {},
     users: [],
     tokens: [],
-    allEmissions: [],
     myTokens: [],
+    myIntentions: [],
     allWishes: [],
     avaiable: [],
     intentionLiquidation: [],
@@ -109,15 +94,15 @@ const store = new Vuex.Store({
     },
     setUsers(state, val) {
       state.users = val;
-    },    
+    },
     setTokens(state, val) {
       state.tokens = val;
     },
-    setAllEmissions(state, val) {
-      state.allEmissions = val;
-    },
     setMyTokens(state, val) {
       state.myTokens = val;
+    },
+    setMyIntentions(state, val) {
+      state.myIntentions = val;
     },
     setAllWishes(state, val) {
       state.allWishes = val;
@@ -179,50 +164,43 @@ const store = new Vuex.Store({
       // redirect to login view
       router.push("/login");
     },
-    async emmitTransaction({ state, commit }, payload) {
-      await fb.tokensE2CCollection.add({
-        amount: payload.amount,
+    async emmitTokens({ state, commit }, payload) {
+      await fb.emissions.add({
+        createdAt: new Date(),
+        initialAmount: payload.amount,
+        currentAmount: payload.amount,
+        fromUid: fb.auth.currentUser.uid,
+        fromName: state.userProfile.name,
         uid: payload.toUid,
-        name: payload.toName        
-      })     
-      .then(docRef => {
-        const tokenId =  docRef.id;
-        fb.emissions.add({
-          createdAt: new Date(),
-          amount: payload.amount,
-          fromUid: fb.auth.currentUser.uid,
-          fromName: state.userProfile.name,
-          description: payload.description,
-          tokenId: tokenId,          
-          amount: payload.amount,          
-          uid: payload.toUid,
-          ownerName: payload.toName
-        });         
-      })
-      .catch(error => console.error("Error adding document: ", error))
+        name: payload.toName,
+        description: payload.description        
+      });
       alert("Salvo com sucesso");
     },
     async setLiquidateIntentionDb({ state, commit }, payload) {
+      console.log("payload store", payload);
       await fb.intentionLiquidation.add({
         createdAt: new Date(),
         fromUid: fb.auth.currentUser.uid,
-        tokenId: payload.tokenId,
+        emissionId: payload.emissionId,          
         fromName: state.userProfile.name,
-        toName: payload.toName,
-        toUid: payload.toUid,
+        name: payload.toName,
+        uid: payload.toUid,
         description: payload.description,
+        completed: false
       });
       alert("Um aviso de Intenção de Liquidação será enviado!");
     },
     async liquidateTokens({ state, commit }, payload) {
       // update token amount
       const tokenDoc = payload.tokenId;
-      const initialAmount = payload.initialAmount;
-      let subtraction = initialAmount - payload.amount;        
-        await fb.tokensE2CCollection.doc(tokenDoc).update({
-          amount: subtraction,
-        });
-      
+      const currentAmount = payload.currentAmount;
+      const amount = payload.amount;
+      const total = currentAmount - amount;           
+      console.log("TOTAL:", total);
+        await fb.emissions.doc(tokenDoc).update({
+          currentAmount: total
+        });      
       alert("Liquidação concluída!");
     },
     async saveWishAccessDb({ state, commit }, payload) {
@@ -246,20 +224,32 @@ const store = new Vuex.Store({
         active: true,
       });
       alert("Salvo com sucesso!");
-    },
-    // async getTransactionDb({ commit }) {
-    //   await fb.transactions.get();
-    //   const transactions = await fb.transactions.get();
-
-    //   // set user profile in state
-    //   commit("setTransactions", transactions.data());
-    // },
+    },  
     async fetchUsers({ commit }) {
       await fb.usersCollection.get();
       const users = await fb.usersCollection.get();
       // set users in state
       commit("setUsers", users.data());
     },
+    // My Intention Liquidations
+    // async fetchMyIntentions() {
+    //   const userId = fb.auth.currentUser.uid;
+
+    //   fb.intentionLiquidation
+    //   .where("uid", "==", userId)
+    //   .onSnapshot((snapshot) => {
+    //     let myIntentionsArray = [];
+
+    //     snapshot.forEach((doc) => {
+    //       let token = doc.data();
+    //       token.id = doc.id;
+
+    //       myIntentionsArray.push(token);
+    //     });
+
+    //     store.commit("setMyIntentions", myIntentionsArray);
+    //   });
+    // },
     async updateProfile({ dispatch }, user) {
       const userId = fb.auth.currentUser.uid;
       // update user object

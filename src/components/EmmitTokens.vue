@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="row">
       <h3>Emitir Tokens</h3>
       <div class="input-group mb-3">
@@ -24,7 +24,7 @@
         </div>
         <input
           v-model.number="amount"
-          type="text"
+          type="number"
           class="form-control"
           aria-label="Amount (to the nearest dollar)"
         />
@@ -47,7 +47,7 @@
       <div>
         <button
           type="button"
-          class="btn btn-primary btn-sm"
+          class="btn btn-primary btn-sm mt-2 mb-2"
           @click="emitirTokens()"
         >
           Emitir
@@ -87,7 +87,7 @@ export default {
           amount: this.amount,
           description: this.descricao,
         };
-        this.$store.dispatch("emmitTransaction", payload);
+        this.$store.dispatch("emmitTokens", payload);
         this.clearFields();
       } else {
         alert("Faltou preencher algum campo. Tente novamente");
