@@ -2,10 +2,7 @@
 
 # vue-e2c        
 
-A Youtube video series where web build a practical e-commerce web app with vuejs and firebase. (Don't just watch the video, do it practically)
-
-[Vuejs Full-Stack Course (AWS / Firebase) Build E-Commerce Website
-](https://www.youtube.com/watch?v=UrUuvNyK-Os&list=PLB4AdipoHpxYPjGo0n2m6tmCLud_iSEbv)
+Token Empático E2C. Reconhecer o outro por boas atitudes e práticas. Conectar pessoas. Conectar pessoas a recursos. Conectar recursos às pessoas.
 
 ## Project setup
 ```
@@ -34,5 +31,11 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-# vue-dashboard-e2c# e2c-pwa
+# vue-e2c#
+
+Projeto baseado em um tutorial online, para mais informações acesse:
+[Vuejs Full-Stack Course (AWS / Firebase) Build E-Commerce Website
+](https://www.youtube.com/watch?v=UrUuvNyK-Os&list=PLB4AdipoHpxYPjGo0n2m6tmCLud_iSEbv)
+
+
 
