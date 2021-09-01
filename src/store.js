@@ -239,8 +239,8 @@ const store = new Vuex.Store({
         title: payload.title,
         description: payload.description,
         completed: false,
-      });
-      alert("Desejo de acesso registrado");
+      });     
+      $('#addwish').modal('hide');
     },
     async saveAvaiableDb({ state, commit }, payload) {
       await fb.avaiable.add({

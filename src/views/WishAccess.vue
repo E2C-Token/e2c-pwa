@@ -1,8 +1,5 @@
 <template>
-  <div>
-    <div>      
-      <AddWish />
-    </div> 
+  <div>     
     <div>
       <h3>Desejos de acesso</h3>
       <WishesTable />
@@ -11,10 +8,9 @@
 </template>
 <script>
 import WishesTable from "../components/WishesTable";
-import AddWish from "../components/AddWish";
 
 export default {
   name: "WishAccess",
-  components: { WishesTable, AddWish },
+  components: { WishesTable },
 };
 </script>

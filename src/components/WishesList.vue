@@ -1,7 +1,12 @@
 <template>
   <div>
-    <div class="card bg-info">
-      <h3 class="ml-3 mr-3 mb-1 mt-1">Desejos de acesso</h3>
+    <div class="card bg-info">      
+      <div class="ml-3 mr-3 mb-1 mt-1">
+      Desejos de acesso      
+      <button @click="addWish()">+</button>
+      </div>
+
+      
       <table class="table table-hover">
         <tbody class="bg-white" :v-model="wishDetails">
           <tr v-for="(g, index) in allWishes" :key="index" @click="details(g)">
@@ -11,7 +16,7 @@
         </tbody>
       </table>
     </div>
-        <!-- Modal -->
+        <!-- Details Modal -->
     <div
       class="modal fade"
       id="wish"
@@ -52,14 +57,59 @@
         </div>
       </div>
     </div>
+            <!-- Add Wish Modal -->
+    <div
+      class="modal fade"
+      id="addwish"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="addWishLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addWishLabel">
+             Adicionar desejo de acesso
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <AddWish />  
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Fechar
+            </button>          
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
+import AddWish from "./AddWish";
 export default {
   name: "WishesList",
+  components: {
+    AddWish
+  },
   data() {
     return {
-      wishDetails: {}
+      wishDetails: {},
+      wishList: {}
     }
   },
   computed: {
@@ -71,6 +121,9 @@ export default {
     details(g) {
       $('#wish').modal('show');
       this.wishDetails = g;
+    },
+    addWish() {
+      $('#addwish').modal('show');      
     }
   }
 };
