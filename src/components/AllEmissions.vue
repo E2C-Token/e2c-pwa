@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <h3>Reconhecimentos</h3> 
+  <div>
+    <!-- <h3>Reconhecimentos</h3>  -->
     <table class="table table-hover">
       <thead>
         <tr>          

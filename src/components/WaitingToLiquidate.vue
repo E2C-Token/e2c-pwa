@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <h3>Aguardando liquidação</h3>     
+      <!-- <h3>Aguardando liquidação</h3>-->
       <div class="row">
         <div
           class="card ml-3 mr-3 mt-2 mb-2"
@@ -87,21 +87,26 @@ export default {
   name: "WaitingToLiquidate",
   data: function() {
     return {
-      user: {},
+      user: null,
       tokenId: null,
       currentAmount: {},
       amount: null,      
       fromName: null,
       description: null,
+      allIntentions: null,
       wishSelected: null   
     };
-  },  
+  },
+  mounted() {
+    this.user = this.$store.state.userProfile.uid;
+    this.allIntentions = this.$store.state.intentionLiquidation;
+  }, 
   computed: {
     tokens: function() {
       return this.$store.state.tokens;
     },    
     intentions: function() {
-      return this.$store.state.intentionLiquidation;
+      return this.allIntentions;
     },
     wishes: function() {
       return this.$store.state.allWishes;
