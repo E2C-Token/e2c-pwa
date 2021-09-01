@@ -46,10 +46,7 @@
               data-dismiss="modal"
             >
               Fechar
-            </button>
-            <!-- <button type="button" class="btn btn-primary" @click="save">
-              Salvar
-            </button> -->
+            </button>          
           </div>
         </div>
       </div>
