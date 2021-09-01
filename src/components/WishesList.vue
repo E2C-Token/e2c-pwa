@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="card bg-info">      
-      <div class="ml-3 mr-3 mb-1 mt-1">
+      <h6 class="ml-3 mr-3 mb-1 mt-1">
       Desejos de acesso      
       <button @click="addWish()">+</button>
-      </div>
+      </h6>
 
       
       <table class="table table-hover">

@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="card bg-warning">
-      <h3 class="ml-3 mr-3 mb-1 mt-1">Para usufruto comum</h3>
+      <h6 class="ml-3 mr-3 mb-1 mt-1">Para usufruto comum
+      <button @click="addAvaiable()">+</button>
+      </h6>
       <table class="table table-hover">
         <tbody class="bg-white" :v-model="selectedAvaiable">
           <tr v-for="(o, index) in avaiable" :key="index" @click="details(o)">
@@ -10,7 +12,7 @@
         </tbody>
       </table>
     </div>
-    <!-- Modal -->
+    <!-- Details Modal -->
     <div
       class="modal fade"
       id="avaiableDetails"
@@ -51,12 +53,55 @@
         </div>
       </div>
     </div>
+                <!-- Add Avaiable Modal -->
+    <div
+      class="modal fade"
+      id="addavaiable"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="addAvaiableLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addAvaiableLabel">
+             Adicionar desejo de acesso
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <AddAvaiable />  
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Fechar
+            </button>          
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
-
+import AddAvaiable from "./AddAvaiable";
 export default {
-  name: "AvaiableList",  
+  name: "AvaiableList",
+  components: {
+    AddAvaiable
+  },
   data() {
     return {
       selectedAvaiable: {},
@@ -72,6 +117,9 @@ export default {
       $('#avaiableDetails').modal('show');
       this.selectedAvaiable = o;
     },
+    addAvaiable() {
+      $('#addavaiable').modal('show');      
+    }
   },
 };
 </script>

@@ -250,8 +250,8 @@ const store = new Vuex.Store({
         title: payload.title,
         description: payload.description,
         active: true,
-      });
-      alert("Salvo com sucesso!");
+      });  
+      $('#addavaiable').modal('hide');
     },  
     async fetchUsers({ commit }) {
       await fb.usersCollection.get();
