@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <h3>Emitir Tokens</h3>
+      <h3>Reconhecer Tokens</h3>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01">Para</label>
@@ -50,7 +50,7 @@
           class="btn btn-primary btn-sm mt-2 mb-2"
           @click="emitirTokens()"
         >
-          Emitir
+          Reconhecer
         </button>
       </div>
     </div>

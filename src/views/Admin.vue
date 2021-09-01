@@ -59,7 +59,7 @@
               <li>
                 <router-link to="/admin/transactions">
                   <i class="fas fa-hand-spock"></i>                  
-                  <span>Emitir</span>
+                  <span>Reconhecer</span>
                 </router-link>
               </li>
               <li>

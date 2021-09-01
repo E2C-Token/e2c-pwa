@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <h3>Intenções de liquidação!</h3>     
+      <h3>Aguardando liquidação</h3>     
       <div class="row">
         <div
           class="card ml-3 mr-3 mt-2 mb-2"
@@ -52,10 +52,18 @@
           </div>
           <div class="modal-body">
             <div>
-              <p>Token emitido por: {{ fromName }}</p>
-              <p>Descrição: {{ description }}</p>                          
+              <p><strong>Token emitido por: </strong> {{ fromName }}</p>
+              <p><strong>Descrição: </strong> {{ description }}</p>                          
             </div>
-            <label>Quantidade a liquidar</label>            
+            <div class="input-group mb-3">
+            <div>
+              <p><strong>Liquidar por algo disponível?</strong></p>
+              <select name="wishSelected" id="wishSelected" v-model="wishSelected">
+                <option v-for="av in avaiable" :value="av.id" :key="av.id">{{av.title}}</option>
+              </select>
+            </div>
+          </div>
+            <p><strong>Vai liquidar quantos tokens?</strong></p>
             <input type="number" v-model="amount"/>
           </div>
           <div class="modal-footer">
@@ -84,7 +92,8 @@ export default {
       currentAmount: {},
       amount: null,      
       fromName: null,
-      description: null     
+      description: null,
+      wishSelected: null   
     };
   },  
   computed: {
@@ -93,7 +102,13 @@ export default {
     },    
     intentions: function() {
       return this.$store.state.intentionLiquidation;
-    },    
+    },
+    wishes: function() {
+      return this.$store.state.allWishes;
+    },
+    avaiable: function() {
+      return this.$store.state.avaiable;
+    }  
   },
   methods: {
     infoToken(i) {     
@@ -111,7 +126,8 @@ export default {
       let payload = {
         tokenId: this.tokenId,
         currentAmount: this.currentAmount,       
-        amount: this.amount
+        amount: this.amount,
+        wishSelected: this.wishSelected
       }      
       this.$store.dispatch("liquidateTokens", payload);
       this.clearAndHideModal();          

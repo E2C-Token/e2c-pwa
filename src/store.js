@@ -74,6 +74,20 @@ fb.avaiable.onSnapshot((snapshot) => {
   store.commit("setAvaiable", avaiableArray);
 });
 
+// All Avaiable
+fb.liquidations.onSnapshot((snapshot) => {
+  let liquidationsArray = [];
+
+  snapshot.forEach((doc) => {
+    let liquidations = doc.data();
+    liquidations.id = doc.id;
+
+    liquidationsArray.push(liquidations);
+  });
+
+  store.commit("setliquidations", liquidationsArray);
+});
+
 const store = new Vuex.Store({
   state: {
     userProfile: {},
@@ -84,6 +98,7 @@ const store = new Vuex.Store({
     allWishes: [],
     avaiable: [],
     intentionLiquidation: [],
+    liquidations: []
   },
   mutations: {
     setUserProfile(state, val) {
@@ -112,6 +127,9 @@ const store = new Vuex.Store({
     },
     setIntentionsLiquidation(state, val) {
       state.intentionLiquidation = val;
+    },
+    setliquidations (state, val) {
+      state.liquidations = val;
     }
   },
   actions: {
@@ -196,12 +214,22 @@ const store = new Vuex.Store({
       const tokenDoc = payload.tokenId;
       const currentAmount = payload.currentAmount;
       const amount = payload.amount;
-      const total = currentAmount - amount;           
-      console.log("TOTAL:", total);
+      const total = currentAmount - amount;
+      if(amount != 0 && amount <= currentAmount) {
+        await fb.liquidations.add({
+          createdAt: new Date(), 
+          emissionId: tokenDoc,       
+          wishSelected: payload.wishSelected,
+          amount: amount
+        })
         await fb.emissions.doc(tokenDoc).update({
           currentAmount: total
         });      
-      alert("Liquidação concluída!");
+        alert("Liquidação concluída!");
+      }else {
+        alert("A quantidade a liquidar deve ser menor que a atual")
+      }
+        
     },
     async saveWishAccessDb({ state, commit }, payload) {
       await fb.allWishes.add({
@@ -230,26 +258,7 @@ const store = new Vuex.Store({
       const users = await fb.usersCollection.get();
       // set users in state
       commit("setUsers", users.data());
-    },
-    // My Intention Liquidations
-    // async fetchMyIntentions() {
-    //   const userId = fb.auth.currentUser.uid;
-
-    //   fb.intentionLiquidation
-    //   .where("uid", "==", userId)
-    //   .onSnapshot((snapshot) => {
-    //     let myIntentionsArray = [];
-
-    //     snapshot.forEach((doc) => {
-    //       let token = doc.data();
-    //       token.id = doc.id;
-
-    //       myIntentionsArray.push(token);
-    //     });
-
-    //     store.commit("setMyIntentions", myIntentionsArray);
-    //   });
-    // },
+    },  
     async updateProfile({ dispatch }, user) {
       const userId = fb.auth.currentUser.uid;
       // update user object

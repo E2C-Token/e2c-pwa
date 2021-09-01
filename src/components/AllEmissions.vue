@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h3>Tokens Emitidos</h3> 
+    <h3>Reconhecimentos</h3> 
     <table class="table table-hover">
       <thead>
         <tr>          
@@ -37,7 +37,7 @@
           <div class="modal-body">            
             <p><strong>Nome:</strong> {{ selected.name }}</p>            
             <p><strong>Fez pelo bem comum:</strong> {{ selected.description }}</p>            
-            <h5>Escreva uma mensagem para {{ selected.name }}</h5>
+            <h5>Interaja aqui com {{ selected.name }}</h5>
             <div class="input-group">
               <textarea
                 v-model="descricao"
