@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="row">
       <h3>Reconhecer Tokens</h3>
       <div class="input-group mb-3">

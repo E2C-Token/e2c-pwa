@@ -1,6 +1,6 @@
 <template>
   <div class="card bg-success">
-      <h3 class="ml-3 mr-3 mb-1 mt-1">Logística Empática</h3>
+      <h6 class="ml-3 mr-3 mb-1 mt-1">Logística Empática (em breve)</h6>
     <table class="table table-hover">     
       <tbody class="bg-white">
         <tr>          
