@@ -1,8 +1,8 @@
 <template>
-  <div class="card">
+  <div class="card bg-success">
       <h3 class="ml-3 mr-3 mb-1 mt-1">Logística Empática</h3>
     <table class="table table-hover">     
-      <tbody>
+      <tbody class="bg-white">
         <tr>          
           <td>João da Silva <strong>>>></strong> Zeca Britto</td>          
         </tr>      
