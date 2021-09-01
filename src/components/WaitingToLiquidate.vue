@@ -12,10 +12,8 @@
           <div
             class="card-item ml-3 mr-3 mt-2 mb-2"            
           >
-            <h4>{{ i.fromName }}</h4>
-            <p>Quer liquidar tokens para você!</p>
-            <p><strong>Mensagem:</strong></p>
-            <p>{{ i.description }}</p>                  
+            <h4>{{ i.fromName }}</h4>            
+            <p><strong>Mensagem: </strong>{{ i.description }}</p>                              
             <button
               @click="infoToken(i)"
               type="button"
