@@ -47,7 +47,7 @@
               <li>
                 <router-link to="/admin/overview">
                   <i class="fas fa-bullhorn"></i>
-                  <span>Experiências</span>
+                  <span>Painel</span>
                 </router-link>
               </li>
               <li>
@@ -62,12 +62,12 @@
                   <span>Reconhecer</span>
                 </router-link>
               </li>
-              <li>
+              <!-- <li>
                 <router-link to="/admin/liquidate">
                   <i class="fas fa-check-double"></i>
                   <span>Liquidar</span>
                 </router-link>
-              </li>
+              </li> -->
               <li>
                 <router-link to="/admin/wishAccess">
                   <i class="far fa-laugh-beam"></i>
