@@ -20,7 +20,19 @@ fb.emissions.onSnapshot((snapshot) => {
 
   store.commit("setTokens", tokensArray);
 });
+// Waiting to Liquidate
+fb.waitingToLiquidate.onSnapshot((snapshot) => {
+  let waitingLiquidationArray = [];
 
+  snapshot.forEach((doc) => {
+    let intention = doc.data();
+    intention.id = doc.id;
+
+    waitingLiquidationArray.push(intention);
+  });
+
+  store.commit("setWaitingToLiquidate", waitingLiquidationArray);
+});
 // Intentions Liquidation
 fb.intentionLiquidation.onSnapshot((snapshot) => {
   let liquidationArray = [];
@@ -73,6 +85,19 @@ fb.avaiable.onSnapshot((snapshot) => {
 
   store.commit("setAvaiable", avaiableArray);
 });
+// Avaiable Active
+fb.avaiableActive.onSnapshot((snapshot) => {
+  let avaiableActiveArray = [];
+
+  snapshot.forEach((doc) => {
+    let avaiableActive = doc.data();
+    avaiableActive.id = doc.id;
+
+    avaiableActiveArray.push(avaiableActive);
+  });
+
+  store.commit("setAvaiableActive", avaiableActiveArray);
+});
 
 // All Liquidations
 fb.liquidations.onSnapshot((snapshot) => {
@@ -94,9 +119,10 @@ const store = new Vuex.Store({
     users: [],
     tokens: [],
     myTokens: [],
-    myIntentions: [],
+    waitingToLiquidate: [],
     allWishes: [],
     avaiable: [],
+    avaiableActive: [],
     intentionLiquidation: [],
     liquidations: []
   },
@@ -116,14 +142,17 @@ const store = new Vuex.Store({
     setMyTokens(state, val) {
       state.myTokens = val;
     },
-    setMyIntentions(state, val) {
-      state.myIntentions = val;
+    setWaitingToLiquidate(state, val) {
+      state.waitingToLiquidate = val;
     },
     setAllWishes(state, val) {
       state.allWishes = val;
     },
     setAvaiable(state, val) {
       state.avaiable = val;
+    },
+    setAvaiableActive(state, val) {
+      state.avaiableActive = val;
     },
     setIntentionsLiquidation(state, val) {
       state.intentionLiquidation = val;

@@ -87,27 +87,27 @@ export default {
       amount: null,      
       fromName: null,
       description: null,
-      allIntentions: null,
+      waitingToLiquidate: null,
       avaiableSelected: null,
       intentionId: null  
     };
   },
   mounted() {
     this.user = this.$store.state.userProfile.uid;
-    this.allIntentions = this.$store.state.intentionLiquidation;
+    // this.waitingToLiquidate = this.$store.state.waitingToLiquidate;
   }, 
   computed: {
     tokens: function() {
       return this.$store.state.tokens;
     },    
     intentions: function() {
-      return this.allIntentions;
+      return this.$store.state.waitingToLiquidate;
     },
     wishes: function() {
       return this.$store.state.allWishes;
     },
     avaiable: function() {
-      return this.$store.state.avaiable;
+      return this.$store.state.avaiableActive;
     }  
   },
   methods: {
@@ -118,7 +118,7 @@ export default {
       this.description = i.description;
       let emission = this.tokenId;
       this.getAmount(emission);
-      console.log(this.intentionId);
+      // console.log(this.intentionId);
       $('#liquidationModal').modal('show');
       this.selected = i;      
     },
@@ -135,7 +135,10 @@ export default {
         avaiableSelected: this.avaiableSelected
       }      
       this.$store.dispatch("liquidateTokens", payload);
-      this.clearAndHideModal();          
+      this.clearAndHideModal();
+      // console.log("Emission ID: ", payload.tokenId);         
+      // console.log("Intention ID: ", payload.intentionId);         
+      // console.log("Avaiable ID: ", payload.avaiableSelected);         
     },
     clearAndHideModal() {
       this.amount = null;

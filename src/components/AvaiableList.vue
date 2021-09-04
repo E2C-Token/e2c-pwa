@@ -109,7 +109,7 @@ export default {
   },
   computed: {
     avaiable: function() {
-      return this.$store.state.avaiable;
+      return this.$store.state.avaiableActive;
     },
   },
   methods: {
