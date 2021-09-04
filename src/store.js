@@ -249,9 +249,11 @@ const store = new Vuex.Store({
         fromName: state.userProfile.name,
         title: payload.title,
         description: payload.description,
+        mode: payload.mode,
+        tags: payload.tags,
         active: true,
-      });  
-      $('#addavaiable').modal('hide');
+      });
+      $('#addavaiable').modal('hide');  
     },  
     async fetchUsers({ commit }) {
       await fb.usersCollection.get();
