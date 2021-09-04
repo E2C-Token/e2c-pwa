@@ -1,7 +1,6 @@
 <template>
     <div class="container">
-        <div class="row mb-3">
-            <h3>Adicionar Desejo de Acesso</h3>
+        <div class="row mb-3">            
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="addWish">Título</label>
@@ -15,7 +14,7 @@
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">Descrição</span>
+                    <span class="input-group-text">Intenção</span>
                 </div>
                 <textarea
                     v-model="description"

@@ -1,7 +1,6 @@
 <template>
     <div class="container">
-        <div class="row mb-3">
-            <h3>Disponibilizar para usufruto comum</h3>
+        <div class="row mb-3">            
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="addWish">Título</label>

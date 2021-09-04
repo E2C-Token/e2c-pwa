@@ -67,7 +67,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="addAvaiableLabel">
-             Adicionar desejo de acesso
+             Disponibilizar para usufruto Comum
             </h5>
             <button
               type="button"
