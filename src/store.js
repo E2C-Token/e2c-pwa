@@ -14,8 +14,9 @@ fb.emissions.onSnapshot((snapshot) => {
   snapshot.forEach((doc) => {
     let token = doc.data();
     token.id = doc.id;
-
-    tokensArray.push(token);
+    if(token.currentAmount !== 0) {
+      tokensArray.push(token);
+    }    
   });
 
   store.commit("setTokens", tokensArray);

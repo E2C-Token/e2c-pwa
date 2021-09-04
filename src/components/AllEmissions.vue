@@ -58,18 +58,17 @@
 export default {
   name: "AllEmissions",
   data(){
-    return {
-      emissions: [],
+    return { 
       selected: {},
       descricao: ""      
     }
-  },
-  mounted(){
-    this.emissions = this.$store.state.tokens;
-  }, 
+  },  
   computed: {    
     userProfile: function() {
       return this.$store.state.userProfile;
+    },
+    emissions: function() {
+      return this.$store.state.tokens;
     }    
   },
   methods: {
