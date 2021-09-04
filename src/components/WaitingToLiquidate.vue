@@ -1,31 +1,27 @@
 <template>
-  <div class="container">
-    <div>
-      <!-- <h3>Aguardando liquidação</h3>-->
-      <div class="row">
-        <div
-          class="card ml-3 mr-3 mt-2 mb-2"
-          v-for="(i, index) in intentions"
-          :key="index"
-          :value="i"
-        >
-          <div
-            class="card-item ml-3 mr-3 mt-2 mb-2"            
-          >
-            <h4>{{ i.fromName }}</h4>            
-            <p><strong>Mensagem: </strong>{{ i.description }}</p>                              
-            <button
-              @click="infoToken(i)"
-              type="button"
-              class="btn btn-primary"
-              data-toggle="modal"
-              data-target="#liquidationModal"
-            >
-              Aceitar
-            </button>
-          </div>
-        </div>
-      </div>
+  <div>
+    <div>      
+      <table class="table table-hover">
+      <thead>
+        <tr>         
+          <th scope="col">Quem liquida</th>
+          <th scope="col">Liquidar de</th>
+          <th scope="col">Descrição</th>
+          <th scope="col">Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(i, index) in intentions" :key="index">
+          <td>{{ i.fromName }}</td>
+          <td>{{ i.name }}</td>
+          <td>{{ i.description }}</td>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary mt-2 mb-2" @click="infoToken(i)">
+            Aceitar
+          </button>
+        </tr>
+      </tbody>
+    </table>
     </div>
     <!-- Modal -->
     <div
@@ -38,7 +34,7 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="liquidationModalLabel">Liquidar quantos tokens?</h5>            
+            <h5 class="modal-title" id="liquidationModalLabel">Aceitar liquidação</h5>            
             <button
               type="button"
               class="close"
@@ -56,7 +52,7 @@
             <div class="input-group mb-3">
             <div>
               <p><strong>Liquidar por algo disponível?</strong></p>
-              <select name="wishSelected" id="wishSelected" v-model="wishSelected">
+              <select name="avaiableSelected" id="avaiableSelected" v-model="avaiableSelected">
                 <option v-for="av in avaiable" :value="av.id" :key="av.id">{{av.title}}</option>
               </select>
             </div>
@@ -92,7 +88,8 @@ export default {
       fromName: null,
       description: null,
       allIntentions: null,
-      wishSelected: null   
+      avaiableSelected: null,
+      intentionId: null  
     };
   },
   mounted() {
@@ -115,11 +112,15 @@ export default {
   },
   methods: {
     infoToken(i) {     
-      this.tokenId = i.emissionId;     
+      this.tokenId = i.emissionId;
+      this.intentionId = i.id;    
       this.fromName = i.fromName;
       this.description = i.description;
       let emission = this.tokenId;
-      this.getAmount(emission);      
+      this.getAmount(emission);
+      console.log(this.intentionId);
+      $('#liquidationModal').modal('show');
+      this.selected = i;      
     },
     getAmount(emission) {
       let selected = this.$store.state.tokens.filter( el => el.id == emission);
@@ -128,9 +129,10 @@ export default {
     liquidar() {
       let payload = {
         tokenId: this.tokenId,
+        intentionId: this.intentionId,
         currentAmount: this.currentAmount,       
         amount: this.amount,
-        wishSelected: this.wishSelected
+        avaiableSelected: this.avaiableSelected
       }      
       this.$store.dispatch("liquidateTokens", payload);
       this.clearAndHideModal();          

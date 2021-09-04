@@ -74,7 +74,7 @@ fb.avaiable.onSnapshot((snapshot) => {
   store.commit("setAvaiable", avaiableArray);
 });
 
-// All Avaiable
+// All Liquidations
 fb.liquidations.onSnapshot((snapshot) => {
   let liquidationsArray = [];
 
@@ -214,22 +214,29 @@ const store = new Vuex.Store({
       const tokenDoc = payload.tokenId;
       const currentAmount = payload.currentAmount;
       const amount = payload.amount;
+      const intentionId = payload.intentionId;
       const total = currentAmount - amount;
+      const avaiableSelected = payload.avaiableSelected;
       if(amount != 0 && amount <= currentAmount) {
         await fb.liquidations.add({
           createdAt: new Date(), 
           emissionId: tokenDoc,       
-          wishSelected: payload.wishSelected,
+          avaiableSelected: avaiableSelected,
           amount: amount
         })
         await fb.emissions.doc(tokenDoc).update({
           currentAmount: total
-        });      
+        });
+        await fb.intentionLiquidation.doc(intentionId).update({
+          completed: true
+        });
+        await fb.avaiable.doc(avaiableSelected).update({
+          active: false
+        })  
         alert("Liquidação concluída!");
       }else {
         alert("A quantidade a liquidar deve ser menor que a atual")
-      }
-        
+      }    
     },
     async saveWishAccessDb({ state, commit }, payload) {
       await fb.allWishes.add({
