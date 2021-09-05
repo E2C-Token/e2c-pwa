@@ -77,8 +77,8 @@ export default {
   data: function() {
     return {
       transactions: [],
-      descricao: "",
-      quemRecebe: "",
+      descricao: null,
+      quemRecebe: null,
       amount: null,
       email: null
     };
@@ -93,8 +93,8 @@ export default {
     emitirTokens() {
       if (
         this.amount !== null &&
-        this.descricao !== "" &&
-        this.quemRecebe !== ""
+        this.descricao !== null &&
+        this.quemRecebe !== null
       ) {
         let payload = {
           toUid: this.quemRecebe.id,
@@ -127,8 +127,8 @@ export default {
       }
     },    
     clearFields() {
-      this.quemRecebe = "";
-      this.descricao = "";      
+      this.quemRecebe = null;
+      this.descricao = null;      
       this.amount = null;
       this.email = null;
     },

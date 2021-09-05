@@ -2,7 +2,7 @@
   <div>    
     <table class="table table-hover">
       <thead>
-        <button @click="addEmission()">Adicionar</button>
+        <button class="btn btn-primary mt-2 mb-2" @click="addEmission()">Reconhecer</button>
         <tr>          
           <th scope="col">Quantidade</th>
           <th scope="col">Quem reconheceu</th>
@@ -67,10 +67,10 @@
           <div class="modal-body">            
            <EmmitTokens />
           </div>
-          <div class="modal-footer">
+          <!-- <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
             <button type="button" class="btn btn-primary" @click="save">Salvar</button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
