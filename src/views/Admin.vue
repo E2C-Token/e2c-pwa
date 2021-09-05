@@ -56,12 +56,12 @@
                   <span>Disponível</span>
                 </router-link>
               </li>
-              <li>
+              <!-- <li>
                 <router-link to="/admin/transactions">
                   <i class="fas fa-hand-spock"></i>                  
                   <span>Reconhecer</span>
                 </router-link>
-              </li>
+              </li> -->
               <!-- <li>
                 <router-link to="/admin/liquidate">
                   <i class="fas fa-check-double"></i>

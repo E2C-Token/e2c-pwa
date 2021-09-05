@@ -212,7 +212,7 @@ const store = new Vuex.Store({
       // redirect to login view
       router.push("/login");
     },
-    async emmitTokens({ state, commit }, payload) {
+    async emmitTokens({ state, commit }, payload) {  
       await fb.emissions.add({
         createdAt: new Date(),  
         initialAmount: payload.amount,
@@ -221,9 +221,10 @@ const store = new Vuex.Store({
         fromName: state.userProfile.name,
         uid: payload.toUid,
         name: payload.toName,
-        description: payload.description        
+        description: payload.description,
+        email: payload.email
       });
-      alert("Salvo com sucesso");
+      $('#addEmission').modal('hide');
     },
     async setLiquidateIntentionDb({ state, commit }, payload) {
       console.log("payload store", payload);

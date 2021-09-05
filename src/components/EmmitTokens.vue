@@ -1,11 +1,10 @@
 <template>
   <div>
     <div class="row">
-      <h3>Reconhecer Tokens</h3>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01">Para</label>
-        </div>
+        </div>        
         <select
           class="custom-select"
           id="inputGroupSelect01"
@@ -15,9 +14,15 @@
           <option v-for="(u, index) in users" :key="index" :value="u">{{
             u.name
           }}</option>
+          <option value="outro">Pessoa não cadastrada...</option>
         </select>
       </div>
-
+      <div class="input-group mb-3" v-if="quemRecebe === 'outro'">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="email">Enviar convite por Email</label>
+          <input type="email" v-model="email" />
+        </div>      
+      </div>    
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text">Quantitativo</span>
@@ -64,8 +69,9 @@ export default {
     return {
       transactions: [],
       descricao: "",
-      quemRecebe: null,
+      quemRecebe: "",
       amount: null,
+      email: ""
     };
   },
   computed: {
@@ -79,25 +85,26 @@ export default {
       if (
         this.amount !== null &&
         this.descricao !== "" &&
-        this.quemRecebe !== null
+        this.quemRecebe !== ""
       ) {
         let payload = {
           toUid: this.quemRecebe.id,
           toName: this.quemRecebe.name,
           amount: this.amount,
           description: this.descricao,
+          email: this.email
         };
         this.$store.dispatch("emmitTokens", payload);
         this.clearFields();
       } else {
         alert("Faltou preencher algum campo. Tente novamente");
       }
-    },
+    },    
     clearFields() {
-      this.quemRecebe = null;
-      this.descricao = "";
-      this.quemRecebe = null;
+      this.quemRecebe = "";
+      this.descricao = "";      
       this.amount = null;
+      this.email = null;
     },
   },
 };

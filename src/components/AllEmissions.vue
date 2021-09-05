@@ -2,6 +2,7 @@
   <div>    
     <table class="table table-hover">
       <thead>
+        <button @click="addEmission()">Adicionar</button>
         <tr>          
           <th scope="col">Quantidade</th>
           <th scope="col">Quem reconheceu</th>
@@ -53,11 +54,33 @@
         </div>
       </div>
     </div>
+        <!--Add Emission Modal -->
+    <div class="modal fade" id="addEmission" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="emissionLabel">Reconhecer</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">            
+           <EmmitTokens />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" @click="save">Salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
+import EmmitTokens from "./EmmitTokens";
 export default {
   name: "AllEmissions",
+  components: { EmmitTokens },
   data(){
     return { 
       selected: {},
@@ -91,6 +114,9 @@ export default {
     },
     closeModal() {      
       $('#intention').modal('hide');
+    },
+    addEmission() {
+      $('#addEmission').modal('show'); 
     }
   }
 };
