@@ -218,10 +218,9 @@ const store = new Vuex.Store({
         initialAmount: payload.amount,
         currentAmount: payload.amount,
         fromUid: fb.auth.currentUser.uid,
-        fromName: payload.quemEmite,
-        // uid: payload.toUid,
+        fromName: state.userProfile.name,
+        uid: payload.toUid,
         name: payload.toName,
-        email: payload.email,
         description: payload.description        
       });
       alert("Salvo com sucesso");
