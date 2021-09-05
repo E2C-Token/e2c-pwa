@@ -36,6 +36,7 @@
           <div class="modal-body">            
             <p><strong>Nome:</strong> {{ selected.name }}</p>            
             <p><strong>Fez pelo bem comum:</strong> {{ selected.description }}</p>            
+            <p><strong>Email:</strong> {{ selected.email }}</p>            
             <h5>Interaja aqui com {{ selected.name }}</h5>
             <div class="input-group">
               <textarea

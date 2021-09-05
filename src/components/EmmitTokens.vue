@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <h3>Reconhecer Tokens</h3>
-      <div class="input-group mb-3">
+      <!-- <div class="input-group mb-3">
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01">Para</label>
         </div>
@@ -16,6 +16,36 @@
             u.name
           }}</option>
         </select>
+      </div> -->      
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Quem Reconhece</span>
+        </div>
+        <input
+          v-model="quemEmite"
+          type="text"
+          class="form-control"          
+        />        
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Quem Recebe (Nome)</span>
+        </div>
+        <input
+          v-model="quemRecebe"
+          type="text"
+          class="form-control"          
+        />        
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Quem Recebe (Email)</span>
+        </div>
+        <input
+          v-model="email"
+          type="text"
+          class="form-control"          
+        />        
       </div>
 
       <div class="input-group mb-3">
@@ -65,6 +95,8 @@ export default {
       transactions: [],
       descricao: "",
       quemRecebe: null,
+      quemEmite: null,
+      email: null,
       amount: null,
     };
   },
@@ -83,9 +115,11 @@ export default {
       ) {
         let payload = {
           toUid: this.quemRecebe.id,
-          toName: this.quemRecebe.name,
+          toName: this.quemRecebe,
           amount: this.amount,
           description: this.descricao,
+          quemEmite: this.quemEmite,
+          email: this.email
         };
         this.$store.dispatch("emmitTokens", payload);
         this.clearFields();
@@ -96,8 +130,9 @@ export default {
     clearFields() {
       this.quemRecebe = null;
       this.descricao = "";
-      this.quemRecebe = null;
+      this.quemEmite = null;
       this.amount = null;
+      this.email = null;
     },
   },
 };

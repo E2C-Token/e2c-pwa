@@ -214,13 +214,14 @@ const store = new Vuex.Store({
     },
     async emmitTokens({ state, commit }, payload) {
       await fb.emissions.add({
-        createdAt: new Date(),
+        createdAt: new Date(),  
         initialAmount: payload.amount,
         currentAmount: payload.amount,
         fromUid: fb.auth.currentUser.uid,
-        fromName: state.userProfile.name,
-        uid: payload.toUid,
+        fromName: payload.quemEmite,
+        // uid: payload.toUid,
         name: payload.toName,
+        email: payload.email,
         description: payload.description        
       });
       alert("Salvo com sucesso");
