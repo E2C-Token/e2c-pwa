@@ -49,13 +49,22 @@
         ></textarea>
       </div>
       <br />
-      <div>
+      <div v-if="quemRecebe != 'outro'">
         <button
           type="button"
           class="btn btn-primary btn-sm mt-2 mb-2"
           @click="emitirTokens()"
         >
           Reconhecer
+        </button>
+      </div>
+      <div v-if="quemRecebe == 'outro'">
+        <button
+          type="button"
+          class="btn btn-primary btn-sm mt-2 mb-2"
+          @click="enviarEmail()"
+        >
+          Enviar convite por email
         </button>
       </div>
     </div>
@@ -71,7 +80,7 @@ export default {
       descricao: "",
       quemRecebe: "",
       amount: null,
-      email: ""
+      email: null
     };
   },
   computed: {
@@ -95,6 +104,23 @@ export default {
           email: this.email
         };
         this.$store.dispatch("emmitTokens", payload);
+        this.clearFields();
+      } else {
+        alert("Faltou preencher algum campo. Tente novamente");
+      }
+    },
+    enviarEmail() {
+      if (
+        this.amount !== null &&
+        this.descricao !== "" &&
+        this.email !== null
+      ) {
+        let payload = {  
+          amount: this.amount,
+          description: this.descricao,
+          email: this.email
+        };
+        this.$store.dispatch("sendInviteEmail", payload);
         this.clearFields();
       } else {
         alert("Faltou preencher algum campo. Tente novamente");
