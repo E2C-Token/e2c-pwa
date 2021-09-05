@@ -5,7 +5,7 @@
       <thead>
         <tr>         
           <th scope="col">Quem liquida</th>
-          <th scope="col">Liquidar de</th>
+          <th scope="col">Liquidar para</th>
           <th scope="col">Descrição</th>
           <th scope="col">Ação</th>
         </tr>

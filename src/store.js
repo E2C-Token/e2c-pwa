@@ -212,6 +212,11 @@ const store = new Vuex.Store({
       // redirect to login view
       router.push("/login");
     },
+    async sendInviteEmail() {
+      alert("Em desenvolvimento...");
+      // const callable = functions.httpsCallable('genericEmail');
+      // return callable({ text: 'Você foi reconhecido pela prática do bem comum com Tokens E2C! Cadastre-se para acessar!', subject: 'Token Empático E2C - Você foi reconhecido!'}).then(console.log);
+    },
     async emmitTokens({ state, commit }, payload) {  
       await fb.emissions.add({
         createdAt: new Date(),  
