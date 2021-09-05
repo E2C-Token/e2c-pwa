@@ -211,12 +211,7 @@ const store = new Vuex.Store({
 
       // redirect to login view
       router.push("/login");
-    },
-    async sendInviteEmail() {
-      alert("Em desenvolvimento...");
-      // const callable = functions.httpsCallable('genericEmail');
-      // return callable({ text: 'Você foi reconhecido pela prática do bem comum com Tokens E2C! Cadastre-se para acessar!', subject: 'Token Empático E2C - Você foi reconhecido!'}).then(console.log);
-    },
+    },    
     async emmitTokens({ state, commit }, payload) {  
       await fb.emissions.add({
         createdAt: new Date(),  
@@ -314,6 +309,19 @@ const store = new Vuex.Store({
 
       dispatch("fetchUserProfile", { uid: userId });
     },
+    async loginMetamask() {
+      let user = Moralis.User.current(); 
+        user = await Moralis.Web3.authenticate();   
+      console.log("logged in user:", user);
+      // $('#login').modal('hide');
+    },
+    async logoutMetamask() {
+      let user = Moralis.User.current();
+      if(user) {
+        await Moralis.User.logOut();
+      }
+      console.log("logged out");
+    }
   },
 });
 

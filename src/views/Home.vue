@@ -25,16 +25,12 @@
 </template>
 
 <script>
-// @ is an alias to /src
-
-import Products from "@/sections/Products.vue";
 import Login from "@/components/Login.vue";
-
 
 export default {
   name: "home",
   components: {
-    Products,Login
+    Login
   }
 };
 </script>

@@ -82,7 +82,7 @@
                 </router-link>
               </li>
               <li>
-                <a href="#" @click="logout()">
+                <a href="#" @click="logoutAll()">
                   <i class="fa fa-power-off"></i>
                   <span>Sair</span>
                 </a>
@@ -133,7 +133,15 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+      this.logoutMetamask();
     },
+    logoutMetamask() {
+      this.$store.dispatch('logoutMetamask');
+    },
+    logoutAll() {
+      this.logout();
+      this.logoutMetamask();
+    }
   },
 };
 </script>
