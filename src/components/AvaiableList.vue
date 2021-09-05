@@ -55,7 +55,7 @@
     </div>
                 <!-- Add Avaiable Modal -->
     <div
-      class="modal fade"
+      class="modal fade bg-warning"
       id="addavaiable"
       data-backdrop="static"
       data-keyboard="false"

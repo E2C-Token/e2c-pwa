@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="row">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -9,8 +9,7 @@
           class="custom-select"
           id="inputGroupSelect01"
           v-model="quemRecebe"
-        >
-          <option selected>Selecione...</option>
+        >          
           <option v-for="(u, index) in users" :key="index" :value="u">{{
             u.name
           }}</option>
@@ -19,7 +18,7 @@
       </div>
       <div class="input-group mb-3" v-if="quemRecebe === 'outro'">
         <div class="input-group-prepend">
-          <label class="input-group-text" for="email">Enviar convite por Email</label>
+          <label class="input-group-text" for="email">Email</label>
           <input type="email" v-model="email" />
         </div>      
       </div>    
@@ -49,7 +48,7 @@
         ></textarea>
       </div>
       <br />
-      <div v-if="quemRecebe != 'outro'">
+      <div v-if="quemRecebe != 'outro' && quemRecebe != null">
         <button
           type="button"
           class="btn btn-primary btn-sm mt-2 mb-2"
