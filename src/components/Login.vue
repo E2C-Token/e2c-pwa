@@ -164,8 +164,10 @@ export default {
     };
   },
   mounted() {
-    Moralis.initialize("2kuTlquQXOkBECBo6jo6rUlVnhROyn0a4uuRm3WV");
-    Moralis.serverURL = "https://ymwaq9uvjdnj.usemoralis.com:2053/server";
+    const moralisApi = process.env.MORALIS_API_KEY;
+    const moralisServer = process.env.MORALIS_SERVER_URL;
+    Moralis.initialize(moralisApi);
+    Moralis.serverURL = moralisServer;
   },
   methods: {
     login() {
