@@ -11,7 +11,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(i, index) in intentions" :key="index">
+        <tr v-for="(i, index) in intentions" :key="index" v-if="i.uid === user">
           <td>{{ i.fromName }}</td>
           <td>{{ i.name }}</td>
           <td>{{ i.description }}</td>
@@ -81,7 +81,7 @@ export default {
   name: "WaitingToLiquidate",
   data: function() {
     return {
-      user: null,
+      // user: null,
       tokenId: null,
       currentAmount: {},
       amount: null,      
@@ -92,10 +92,10 @@ export default {
       intentionId: null  
     };
   },
-  mounted() {
-    this.user = this.$store.state.userProfile.uid;
-    // this.waitingToLiquidate = this.$store.state.waitingToLiquidate;
-  }, 
+  // mounted() {
+  //   this.user = this.$store.state.userProfile.uid;
+  //   // this.waitingToLiquidate = this.$store.state.waitingToLiquidate;
+  // }, 
   computed: {
     tokens: function() {
       return this.$store.state.tokens;
@@ -108,7 +108,10 @@ export default {
     },
     avaiable: function() {
       return this.$store.state.avaiableActive;
-    }  
+    },
+    user: function() {
+      return this.$store.state.userProfile.uid;
+    }
   },
   methods: {
     infoToken(i) {     
