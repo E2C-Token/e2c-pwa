@@ -2,7 +2,7 @@
   <div>    
     <table class="table table-hover">
       <thead>
-        <button class="btn btn-primary mt-2 mb-2" @click="addEmission()">Reconhecer</button>
+        <button class="btn btn-primary mb-3" @click="addEmission()">Reconhecer</button>
         <tr>          
           <th scope="col">Quantidade</th>
           <th scope="col">Quem reconheceu</th>
