@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(i, index) in emissions" :key="index">         
+        <tr v-for="(i, index) in emissions" :key="index" v-if="i.uid !== userProfile.uid">         
           <td>{{ i.currentAmount }}</td>
           <td>{{ i.fromName }}</td>
           <td>{{ i.name }}</td>
