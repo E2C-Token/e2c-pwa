@@ -19,7 +19,7 @@
           <button type="button" class="btn btn-primary mt-2 mb-2" @click="infoToken(i)">
             Aceitar
           </button>
-        </tr>
+        </tr>          
       </tbody>
     </table>
     </div>

@@ -25,7 +25,7 @@
                 data-parent="#emissions"
               >
                 <div class="card-body">
-                  <AllEmissions />
+                  <Emissions />
                 </div>
               </div>
             </div>
@@ -103,7 +103,7 @@
   </div>
 </template>
 <script>
-import AllEmissions from "../components/AllEmissions";
+import Emissions from "../components/Emissions";
 import Logistic from "../components/Logistic";
 import WaitingToLiquidate from "../components/WaitingToLiquidate";
 import WishesList from "../components/WishesList";
@@ -111,7 +111,7 @@ import AvaiableList from "../components/AvaiableList";
 import Liquidated from "../components/Liquidated";
 export default {
   name: "Overview",
-  components: { AllEmissions, Logistic, WaitingToLiquidate, WishesList, AvaiableList, Liquidated },
+  components: { Emissions, Logistic, WaitingToLiquidate, WishesList, AvaiableList, Liquidated },
   computed: {
     userProfile() {
       return this.$store.state.userProfile.uid;
