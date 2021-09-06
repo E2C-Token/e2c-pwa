@@ -1,15 +1,35 @@
 <template>
-    <div>
-        <p v-for="(i,index) in allEmissions" :key="index">{{ i.fromName }} >>> {{ i.name }}</p>
-    </div>
+  <div>
+    <h4>Todos os Reconhecimentos</h4>
+    <table class="table table-hover">
+      <thead>        
+        <tr>
+          <th scope="col">Quem reconheceu</th>
+          <th scope="col">Quem recebeu</th>
+          <th scope="col">Descrição</th>          
+          <th scope="col">Quantidade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="(i,index) in allEmissions" :key="index"       
+        >
+          <td>{{ i.fromName }}</td>
+          <td>{{ i.name }}</td>
+          <td>{{ i.description }}</td>          
+          <td>{{ i.currentAmount }}</td>
+        </tr>
+      </tbody>
+    </table>    
+  </div>
 </template>
 <script>
 export default {
-    name: "AllEmissions",
-    computed: {
-        allEmissions() {
-            return this.$store.state.tokens;
-        } 
-    }
-}
+  name: "AllEmissions",
+  computed: {
+    allEmissions() {
+      return this.$store.state.tokens;
+    },
+  },
+};
 </script>

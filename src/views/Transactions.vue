@@ -1,19 +1,16 @@
 <template>
   <div>    
     <div>      
-      
-    </div>
-    <div>      
-      <EmmitTokens />
+      <AllEmissions />
     </div>
   </div>
 </template>
 <script>
 
-import EmmitTokens from "../components/EmmitTokens"
+import AllEmissions from "../components/AllEmissions"
 
 export default {
   name: "Transactions",
-  components: { EmmitTokens },
+  components: { AllEmissions },
 };
 </script>

@@ -29,16 +29,18 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="intentionLabel">Enviar intenção de liquidação</h5>
+            <h5 class="modal-title" id="intentionLabel">Liquidar para {{ selected.name }}?</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">            
-            <p><strong>Nome:</strong> {{ selected.name }}</p>            
-            <p><strong>Fez pelo bem comum:</strong> {{ selected.description }}</p>            
-            <p><strong>Email:</strong> {{ selected.email }}</p>            
-            <h5>Interaja aqui com {{ selected.name }}</h5>
+          <div class="modal-body">
+            <label><strong>Detalhes do reconhecimento:</strong></label>           
+            <p>{{ selected.name }} foi reconhecido por {{ selected.fromName }}</p>            
+            <p>e o motivo foi: ''{{ selected.description }}...'' </p>            
+            <!-- <p><strong>Email:</strong> {{ selected.email }}</p>             -->
+            <p>Digite algo legal para {{ selected.name }}. Uma intenção de liquidação será enviada junto com a sua mensagem <strong>;)</strong></p>
+            
             <div class="input-group">
               <textarea
                 v-model="descricao"
@@ -49,7 +51,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" @click="save">Salvar</button>
+            <button type="button" class="btn btn-primary" @click="save">Enviar</button>
           </div>
         </div>
       </div>
