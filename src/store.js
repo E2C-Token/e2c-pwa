@@ -258,6 +258,7 @@ const store = new Vuex.Store({
           createdAt: new Date(), 
           emissionId: tokenDoc,       
           avaiableSelected: avaiableSelected,
+          intentionId: intentionId,
           amount: amount
         })
         await fb.emissions.doc(tokenDoc).update({
