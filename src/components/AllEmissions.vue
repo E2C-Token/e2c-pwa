@@ -26,7 +26,7 @@
     </table>
     <!-- Modal -->
     <div class="modal fade" id="intention" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="intentionLabel" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="intentionLabel">Enviar intenção de liquidação</h5>
@@ -56,7 +56,7 @@
     </div>
         <!--Add Emission Modal -->
     <div class="modal fade" id="addEmission" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="emissionLabel">Reconhecer</h5>

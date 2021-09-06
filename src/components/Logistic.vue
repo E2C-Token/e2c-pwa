@@ -4,10 +4,10 @@
     <table class="table table-hover">     
       <tbody class="bg-white">
         <tr>          
-          <td>João da Silva <strong>>>></strong> Zeca Britto</td>          
+          <td>Gotardo Gomes <strong>>>></strong> Zeca Britto</td>          
         </tr>      
         <tr>          
-          <td>Carlos <strong>>>></strong> José Augusto</td>          
+          <td>Duílio Silva <strong>>>></strong> Edelvira Santos</td>          
         </tr>      
       </tbody>
     </table>

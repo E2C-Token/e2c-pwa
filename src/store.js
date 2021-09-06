@@ -213,7 +213,7 @@ const store = new Vuex.Store({
       router.push("/login");
     },
     async sendInviteEmail() {
-      alert("Em desenvolvimento...");
+      alert("Em desenvolvimento...Essa funcionalidade estará disponível em breve!!!");
       // const callable = functions.httpsCallable('genericEmail');
       // return callable({ text: 'Você foi reconhecido pela prática do bem comum com Tokens E2C! Cadastre-se para acessar!', subject: 'Token Empático E2C - Você foi reconhecido!'}).then(console.log);
     },
