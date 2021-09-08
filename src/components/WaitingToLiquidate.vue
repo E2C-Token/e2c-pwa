@@ -11,7 +11,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(i, index) in intentions" :key="index" v-if="i.name !== user.name">
+        <tr v-for="(i, index) in intentions" :key="index" v-if="i.name == user.name">
           <td >{{ i.fromName }}</td>
           <td >{{ i.name }}</td>
           <td >{{ i.description }}</td>
@@ -81,7 +81,7 @@ export default {
   name: "WaitingToLiquidate",
   data: function() {
     return {
-      user: null,
+      // user: null,
       tokenId: null,
       currentAmount: {},
       amount: null,      
@@ -92,10 +92,13 @@ export default {
       intentionId: null  
     };
   },
-  async mounted() {
-    this.user = await this.$store.state.userProfile;  
-  }, 
+  // async mounted() {
+  //   this.user = await this.$store.state.userProfile;  
+  // }, 
   computed: {
+    user: function() {
+      return this.$store.state.userProfile;
+    },
     tokens: function() {
       return this.$store.state.tokens;
     },    

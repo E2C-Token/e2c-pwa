@@ -65,7 +65,7 @@
               <p>
                 {{ selected.name }} foi reconhecido por {{ selected.fromName }}
               </p>
-              <p>e o motivo foi: ''{{ selected.description }}...''</p>
+              <p>E o motivo foi: <strong>''{{ selected.description }}...''</strong></p>
               <!-- <p><strong>Email:</strong> {{ selected.email }}</p> -->
             </div>
             <div class="input-group mb-3">
