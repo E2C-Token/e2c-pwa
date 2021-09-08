@@ -179,7 +179,7 @@ export default {
     updateProfile() { 
        this.$firestore.profile.update(this.profile);     
       alert("Perfil atualizado");
-      this.$router.replace("products");           
+      this.$router.replace("overview");           
     },    
   }
 };

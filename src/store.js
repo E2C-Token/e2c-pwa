@@ -213,9 +213,7 @@ const store = new Vuex.Store({
       router.push("/login");
     },
     async sendInviteEmail() {
-      alert("Em desenvolvimento...Essa funcionalidade estará disponível em breve!!!");
-      // const callable = functions.httpsCallable('genericEmail');
-      // return callable({ text: 'Você foi reconhecido pela prática do bem comum com Tokens E2C! Cadastre-se para acessar!', subject: 'Token Empático E2C - Você foi reconhecido!'}).then(console.log);
+      alert("Em desenvolvimento...Essa funcionalidade estará disponível em breve!!!");  
     },
     async emmitTokens({ state, commit }, payload) {  
       await fb.emissions.add({
@@ -231,8 +229,7 @@ const store = new Vuex.Store({
       });
       $('#addEmission').modal('hide');
     },
-    async setLiquidateIntentionDb({ state, commit }, payload) {
-      console.log("payload store", payload);
+    async setLiquidateIntentionDb({ state, commit }, payload) { 
       await fb.intentionLiquidation.add({
         createdAt: new Date(),
         fromUid: fb.auth.currentUser.uid,
@@ -241,6 +238,7 @@ const store = new Vuex.Store({
         name: payload.toName,
         uid: payload.toUid,
         description: payload.description,
+        wishId: payload.wishId,
         completed: false
       });
       alert("Um aviso de Intenção de Liquidação será enviado!");

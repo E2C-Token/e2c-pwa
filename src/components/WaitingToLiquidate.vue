@@ -11,12 +11,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(i, index) in intentions" :key="index" v-if="i.uid === user">
-          <td>{{ i.fromName }}</td>
-          <td>{{ i.name }}</td>
-          <td>{{ i.description }}</td>
+        <tr v-for="(i, index) in intentions" :key="index" v-if="i.name !== user.name">
+          <td >{{ i.fromName }}</td>
+          <td >{{ i.name }}</td>
+          <td >{{ i.description }}</td>
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary mt-2 mb-2" @click="infoToken(i)">
+          <button   type="button" class="btn btn-primary mt-2 mb-2" @click="infoToken(i)">
             Aceitar
           </button>
         </tr>          
@@ -81,7 +81,7 @@ export default {
   name: "WaitingToLiquidate",
   data: function() {
     return {
-      // user: null,
+      user: null,
       tokenId: null,
       currentAmount: {},
       amount: null,      
@@ -92,10 +92,9 @@ export default {
       intentionId: null  
     };
   },
-  // mounted() {
-  //   this.user = this.$store.state.userProfile.uid;
-  //   // this.waitingToLiquidate = this.$store.state.waitingToLiquidate;
-  // }, 
+  async mounted() {
+    this.user = await this.$store.state.userProfile;  
+  }, 
   computed: {
     tokens: function() {
       return this.$store.state.tokens;
@@ -108,10 +107,7 @@ export default {
     },
     avaiable: function() {
       return this.$store.state.avaiableActive;
-    },
-    user: function() {
-      return this.$store.state.userProfile.uid;
-    }
+    },  
   },
   methods: {
     infoToken(i) {     
@@ -120,8 +116,7 @@ export default {
       this.fromName = i.fromName;
       this.description = i.description;
       let emission = this.tokenId;
-      this.getAmount(emission);
-      // console.log(this.intentionId);
+      this.getAmount(emission);  
       $('#liquidationModal').modal('show');
       this.selected = i;      
     },
@@ -138,10 +133,7 @@ export default {
         avaiableSelected: this.avaiableSelected
       }      
       this.$store.dispatch("liquidateTokens", payload);
-      this.clearAndHideModal();
-      // console.log("Emission ID: ", payload.tokenId);         
-      // console.log("Intention ID: ", payload.intentionId);         
-      // console.log("Avaiable ID: ", payload.avaiableSelected);         
+      this.clearAndHideModal();   
     },
     clearAndHideModal() {
       this.amount = null;
