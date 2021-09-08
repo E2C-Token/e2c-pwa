@@ -251,6 +251,7 @@ const store = new Vuex.Store({
       const intentionId = payload.intentionId;
       const total = currentAmount - amount;
       const avaiableSelected = payload.avaiableSelected;
+      const wishId = payload.wishId;
       const uid = fb.auth.currentUser.uid;  
       if(amount != 0 && amount <= currentAmount) {
         await fb.liquidations.add({
@@ -258,6 +259,7 @@ const store = new Vuex.Store({
           uid: uid, 
           emissionId: tokenDoc,       
           avaiableSelected: avaiableSelected,
+          wishId: wishId,
           intentionId: intentionId,
           amount: amount
         })

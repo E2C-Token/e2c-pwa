@@ -48,6 +48,7 @@
             <div>
               <p><strong>Token emitido por: </strong> {{ fromName }}</p>
               <p><strong>Descrição: </strong> {{ description }}</p>                          
+              <p><strong>Ofereceu a liquidação por: </strong> {{ wish }}</p>                          
             </div>
             <div class="input-group mb-3">
             <div>
@@ -87,6 +88,7 @@ export default {
       amount: null,      
       fromName: null,
       description: null,
+      wish: null,
       waitingToLiquidate: null,
       avaiableSelected: null,
       intentionId: null  
@@ -118,6 +120,7 @@ export default {
       this.intentionId = i.id;    
       this.fromName = i.fromName;
       this.description = i.description;
+      this.wish = i.wishId;
       let emission = this.tokenId;
       this.getAmount(emission);  
       $('#liquidationModal').modal('show');
@@ -133,7 +136,8 @@ export default {
         intentionId: this.intentionId,
         currentAmount: this.currentAmount,       
         amount: this.amount,
-        avaiableSelected: this.avaiableSelected
+        avaiableSelected: this.avaiableSelected,
+        wishId: this.wish
       }      
       this.$store.dispatch("liquidateTokens", payload);
       this.clearAndHideModal();   
