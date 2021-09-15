@@ -160,7 +160,7 @@ export default {
       return this.$store.state.userProfile;
     },
     emissions: function() {
-      return this.$store.state.tokens;
+      return this.$store.state.tokens.filter(el => el.currentAmount != 0);
     },
     wishes: function() {
       return this.$store.state.allWishes;

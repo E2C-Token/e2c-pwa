@@ -11,7 +11,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(i, index) in intentions" :key="index" v-if="i.name == user.name">
+        <tr v-for="(i, index) in intentions" :key="index" v-if="i.uid == user.uid && tokens.currentAmount != 0">
           <td >{{ i.fromName }}</td>
           <td >{{ i.name }}</td>
           <td >{{ i.description }}</td>

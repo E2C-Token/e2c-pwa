@@ -42,7 +42,7 @@
                     aria-expanded="true"
                     aria-controls="collapseTwo"
                   >
-                    Aguardando Liquidação
+                    Interações para mim 
                   </button>
                 </h5>
               </div>
@@ -70,7 +70,7 @@
                     aria-expanded="true"
                     aria-controls="liquidat"
                   >
-                    Liquidados
+                    Liquidados para mim
                   </button>
                 </h5>
               </div>
