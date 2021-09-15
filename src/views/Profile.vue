@@ -62,9 +62,7 @@
                     <label>Cep</label>
                     <input
                       type="text"
-                      v-model="profile.postCode"
-                      @blur="translateZipcode(profile.postCode)"
-                      
+                      v-model="profile.postCode"                     
                       class="form-control"
                     />
                   </div>
@@ -87,8 +85,7 @@
                     <label>Endereço</label>
                     <input
                       type="text"
-                      v-model="profile.address"
-                      
+                      v-model="profile.address"                      
                       class="form-control"
                     />
                   </div>
@@ -126,7 +123,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { VueEditor } from "vue2-editor";
 import { fb, db } from "../firebase";
 
@@ -149,33 +145,17 @@ export default {
         address: null,
         neighborhood: null,
         postCode: null
-      },
-      cepResponse: [],     
+      },    
     };
-  },
-  computed: {
-    userProfile: function() {
-      return this.$store.state.userProfile;
-    }
-  },
+  },  
   firestore() {
     const user = fb.auth().currentUser;
     return {
       profile: db.collection("profiles").doc(user.uid),
-      //markers: db.collection("markers").doc()
+      
     };
   },
   methods: {  
-    translateZipcode() {      
-      let postCode = this.profile.postCode
-      let address = this.profile.address
-      let cepResponse = axios.get('https://api.postmon.com.br/v1/cep/'+ `${postCode}`)
-      .then(response => (this.cepResponse = response.data))
-  
-      /* Tratar os dados no retorno*/
-      console.log(cepResponse)   
-      
-    },    
     updateProfile() { 
        this.$firestore.profile.update(this.profile);     
       alert("Perfil atualizado");

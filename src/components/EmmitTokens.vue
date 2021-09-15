@@ -85,7 +85,7 @@ export default {
   computed: {
     ...mapState(["userProfile"]),
     users: function() {
-      return this.$store.state.users;
+      return this.$store.state.users.filter(el=> el.uid != this.userProfile.uid);
     },
   },
   methods: {

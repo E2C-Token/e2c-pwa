@@ -8,7 +8,7 @@
       </thead>
       <tbody>
         <tr v-for="(i, index) in liquidated" :key="index">
-          <td>{{ i.emissionId }}</td>          
+          <td v-if="i.uid == userProfile.uid">{{ i.emissionId }}</td>          
         </tr>
       </tbody>
     </table>
@@ -19,7 +19,13 @@ export default {
   name: "Liquidated",
   computed: {
       liquidated: function() {
-          return this.$store.state.liquidations;
+        return this.$store.state.liquidations;
+      },
+      userProfile: function() {
+        return this.$store.state.userProfile;
+      },
+      emissions: function() {
+        return this.$store.state.emissions;
       }
   }
 };
