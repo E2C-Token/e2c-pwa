@@ -220,12 +220,10 @@ const store = new Vuex.Store({
         createdAt: new Date(),  
         initialAmount: payload.amount,
         currentAmount: payload.amount,
-        fromUid: fb.auth.currentUser.uid,
-        fromName: state.userProfile.name,
-        uid: payload.toUid,
-        name: payload.toName,
+        fromName: payload.fromName,  
+        toName: payload.toName,
         description: payload.description,
-        email: payload.email
+        liquidationWish: payload.liqui,
       });
       $('#addEmission').modal('hide');
     },
@@ -245,33 +243,31 @@ const store = new Vuex.Store({
     },
     async liquidateTokens({ state, commit }, payload) {
       // update token amount
-      const tokenDoc = payload.tokenId;
+      const tokenDoc = payload.selected.id;
       const currentAmount = payload.currentAmount;
       const amount = payload.amount;
-      const intentionId = payload.intentionId;
       const total = currentAmount - amount;
-      const avaiableSelected = payload.avaiableSelected;
-      const wishId = payload.wishId;
-      const uid = fb.auth.currentUser.uid;  
+      const toName = payload.toName;
+      const fromName = payload.fromName;
+      const liquidationMethod = payload.liquidationMethod;
+      const description = payload.description;
+      const comments = payload.comments;
+      
       if(amount != 0 && amount <= currentAmount) {
         await fb.liquidations.add({
           createdAt: new Date(),
-          uid: uid, 
-          emissionId: tokenDoc,       
-          avaiableSelected: avaiableSelected,
-          wishId: wishId,
-          intentionId: intentionId,
-          amount: amount
-        })
+          toName: toName, 
+          emissionId: tokenDoc,
+          amount: amount,
+          fromName: fromName,
+          toName: toName,
+          liquidationMethod: liquidationMethod,
+          comments: comments,
+          description: description,
+        });
         await fb.emissions.doc(tokenDoc).update({
           currentAmount: total
-        });
-        await fb.intentionLiquidation.doc(intentionId).update({
-          completed: true
-        });
-        await fb.avaiable.doc(avaiableSelected).update({
-          active: false
-        })  
+        });  
         alert("Liquidação concluída!");
       }else {
         alert("A quantidade a liquidar deve ser menor que a atual")

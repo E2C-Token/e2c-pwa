@@ -7,6 +7,7 @@ import Transactions from "./views/Transactions.vue";
 import WishAccess from "./views/WishAccess.vue";
 import Profile from "./views/Profile.vue";
 import Avaiable from "./views/Avaiable.vue";
+import Control from "./components/Control.vue";
 // import Liquidate from "./views/Liquidate.vue";
 import {fb} from './firebase'
 
@@ -36,6 +37,11 @@ const router =  new Router({
           path: "transactions",
           name: "transactions",
           component: Transactions
+        },        
+        {
+          path: "control",
+          name: "control",
+          component: Control
         },
         {
           path: "profile",

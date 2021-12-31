@@ -1,5 +1,5 @@
 <template>
-  <div>    
+  <div>      
     <div>      
       <AllEmissions />
     </div>
@@ -8,6 +8,7 @@
 <script>
 
 import AllEmissions from "../components/AllEmissions"
+
 
 export default {
   name: "Transactions",

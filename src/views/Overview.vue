@@ -29,8 +29,8 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="accordion mb-3" id="intentions">
+          </div>              
+          <div class="accordion mb-5" id="liquidated">
             <div class="card">
               <div class="card-header" id="headingTwo">
                 <h5 class="mb-0">
@@ -38,39 +38,11 @@
                     class="btn btn-link"
                     type="button"
                     data-toggle="collapse"
-                    data-target="#collapseTwo"
+                    data-target="#liquidated"
                     aria-expanded="true"
-                    aria-controls="collapseTwo"
+                    aria-controls="liquidated"
                   >
-                    Interações para mim 
-                  </button>
-                </h5>
-              </div>
-              <div
-                id="collapseTwo"
-                class="collapse show"
-                aria-labelledby="headingTwo"
-                data-parent="#intentions"
-              >
-                <div class="card-body">
-                  <WaitingToLiquidate />
-                </div>
-              </div>
-            </div>
-          </div>      
-          <div class="accordion mb-5" id="liquidat">
-            <div class="card">
-              <div class="card-header" id="headingTwo">
-                <h5 class="mb-0">
-                  <button
-                    class="btn btn-link"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#liquidate"
-                    aria-expanded="true"
-                    aria-controls="liquidat"
-                  >
-                    Liquidados para mim
+                    Liquidados
                   </button>
                 </h5>
               </div>
@@ -78,7 +50,7 @@
                 id="liquidate"
                 class="collapse show"
                 aria-labelledby="headingTwo"
-                data-parent="#liquidat"
+                data-parent="#liquidated"
               >
                 <div class="card-body">
                   <Liquidated />

@@ -1,14 +1,10 @@
 <template>
   <div>
     <table class="table table-hover">
-      <thead>         
-        <tr>
-          <th scope="col">ID do Reconhecimento</th>
-        </tr>
-      </thead>
+      
       <tbody>
         <tr v-for="(i, index) in liquidated" :key="index">
-          <td v-if="i.uid == userProfile.uid">{{ i.emissionId }}</td>          
+          <td><strong>{{ i.fromName }}</strong> liquidou <strong>{{ i.amount }}</strong> token E2C para <strong>{{ i.toName }}</strong> em troca de <strong>{{ i.liquidationMethod }}</strong></td>          
         </tr>
       </tbody>
     </table>
@@ -20,9 +16,6 @@ export default {
   computed: {
       liquidated: function() {
         return this.$store.state.liquidations;
-      },
-      userProfile: function() {
-        return this.$store.state.userProfile;
       },
       emissions: function() {
         return this.$store.state.emissions;

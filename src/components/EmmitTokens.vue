@@ -3,28 +3,19 @@
     <div class="row">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Para</label>
-        </div>        
-        <select
-          class="custom-select"
-          id="inputGroupSelect01"
-          v-model="quemRecebe"
-        >          
-          <option v-for="(u, index) in users" :key="index" :value="u">{{
-            u.name
-          }}</option>
-          <option value="outro">Pessoa não cadastrada...</option>
-        </select>
-      </div>
-      <div class="input-group mb-3" v-if="quemRecebe === 'outro'">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="email">Email</label>
-          <input type="email" v-model="email" />
-        </div>      
-      </div>    
+          <label class="input-group-text" for="inputGroupSelect01">Quem reconhece</label>
+          <input type="text" v-model="quemReconhece">
+        </div>
+      </div>         
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text">Quantitativo</span>
+          <label class="input-group-text" for="inputGroupSelect01">Quem recebe</label>
+          <input type="text" v-model="quemRecebe">
+        </div>
+      </div>         
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Quantidade</span>
         </div>
         <input
           v-model.number="amount"
@@ -39,7 +30,7 @@
 
       <div class="input-group">
         <div class="input-group-prepend">
-          <span class="input-group-text">Descrição</span>
+          <span class="input-group-text">Micronarrativa</span>
         </div>
         <textarea
           v-model="descricao"
@@ -47,8 +38,17 @@
           aria-label="With textarea"
         ></textarea>
       </div>
+      <div class="input-group mb-3 mt-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Quem recebe quer liquidar por</span>
+        </div>
+        <textarea
+          v-model="liqui"        
+          class="form-control"          
+        />        
+      </div>
       <br />
-      <div v-if="quemRecebe != 'outro' && quemRecebe != null">
+      <div>
         <button
           type="button"
           class="btn btn-primary btn-sm mt-2 mb-2"
@@ -56,16 +56,7 @@
         >
           Reconhecer
         </button>
-      </div>
-      <div v-if="quemRecebe == 'outro'">
-        <button
-          type="button"
-          class="btn btn-primary btn-sm mt-2 mb-2"
-          @click="enviarEmail()"
-        >
-          Enviar convite por email
-        </button>
-      </div>
+      </div>      
     </div>
   </div>
 </template>
@@ -77,30 +68,27 @@ export default {
     return {
       transactions: [],
       descricao: null,
+      quemReconhece: null,
       quemRecebe: null,
       amount: null,
-      email: null
+      liqui: null  
     };
-  },
-  computed: {
-    ...mapState(["userProfile"]),
-    users: function() {
-      return this.$store.state.users.filter(el=> el.uid != this.userProfile.uid);
-    },
-  },
+  },  
   methods: {
     emitirTokens() {
       if (
         this.amount !== null &&
         this.descricao !== null &&
-        this.quemRecebe !== null
+        this.quemRecebe !== null &&
+        this.quemReconhece !== null
       ) {
         let payload = {
-          toUid: this.quemRecebe.id,
-          toName: this.quemRecebe.name,
+          fromName: this.quemReconhece,
+          toName: this.quemRecebe,
           amount: this.amount,
           description: this.descricao,
-          email: this.email
+          liqui: this.liqui
+          
         };
         this.$store.dispatch("emmitTokens", payload);
         this.clearFields();

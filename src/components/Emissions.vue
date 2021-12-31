@@ -20,16 +20,15 @@
         >
           <td>{{ i.currentAmount }}</td>
           <td>{{ i.fromName }}</td>
-          <td>{{ i.name }}</td>
+          <td>{{ i.toName || i.name }}</td>
           <td>{{ i.description }}</td>
           <!-- Button trigger modal -->
           <button
             type="button"
             class="btn btn-primary mt-2 mb-2"
-            @click="openIntentionModal(i)"
-            v-if="i.name !== userProfile.name"
+            @click="openLiquidationModal(i)"            
           >
-            Interagir
+            Liquidar
           </button>
         </tr>
       </tbody>
@@ -37,19 +36,15 @@
     <!-- Modal -->
     <div
       class="modal fade"
-      id="intention"
-      data-backdrop="static"
-      data-keyboard="false"
+      id="liquidationModal"
       tabindex="-1"
-      aria-labelledby="intentionLabel"
+      aria-labelledby="liquidationModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="intentionLabel">
-              Liquidar para {{ selected.name }}?
-            </h5>
+            <h5 class="modal-title" id="liquidationModalLabel">Liquidar</h5>            
             <button
               type="button"
               class="close"
@@ -61,41 +56,48 @@
           </div>
           <div class="modal-body">
             <div>
-              <label><strong>Detalhes do reconhecimento:</strong></label>
-              <p>
-                {{ selected.name }} foi reconhecido por {{ selected.fromName }}
-              </p>
-              <p>E o motivo foi: <strong>''{{ selected.description }}...''</strong></p>
-              <!-- <p><strong>Email:</strong> {{ selected.email }}</p> -->
+              <p><strong>Token emitido por: </strong> {{ selected.fromName }}</p>
+              <p><strong>Descrição: </strong> {{ selected.description }}</p>                                      
             </div>
             <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <label class="input-group-text" for="wishSelect"
-                  >Liquidar por desejo de acesso</label
-                >
-              </div>
-              <select
-                class="custom-select"
-                id="wishSelect"
-                v-model="selectedWish"
-              >
-                <option v-for="(w, index) in wishes" :key="index" :value="w.id">
-                  {{ w.fromName }} - {{ w.title }}
-                </option>               
-              </select>
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="description">Quem liquida</label>
+                </div>
+                <input
+                    v-model="fromName"
+                    type="text"
+                    class="form-control"                    
+                />
             </div>
-
-            <p>
-              Digite algo legal para {{ selected.name }}. Uma intenção de
-              liquidação será enviada junto com a sua mensagem
-              <strong>;)</strong>
-            </p>
-            <div class="input-group">
-              <textarea
-                v-model="descricao"
-                class="form-control"
-                aria-label="With textarea"
-              ></textarea>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="description">Como a liquidação ocorreu</label>
+                </div>
+                <textarea
+                    v-model="liquidationMethod"
+                    type="text"
+                    class="form-control"                    
+                />
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="description">Comentários</label>
+                </div>
+                <textarea
+                    v-model="comments"
+                    type="text"
+                    class="form-control"                    
+                />
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="amount">Quantidade</label>
+                </div>
+                <input
+                    v-model="amount"
+                    type="number"
+                    class="form-control"                    
+                />
             </div>
           </div>
           <div class="modal-footer">
@@ -106,10 +108,9 @@
             >
               Cancelar
             </button>
-            <button type="button" class="btn btn-primary" @click="save">
-              Enviar
-            </button>
+            <button type="button" class="btn btn-primary" @click="liquidar()">Salvar</button>          
           </div>
+          
         </div>
       </div>
     </div>
@@ -151,8 +152,11 @@ export default {
   data() {
     return {
       selected: {},
-      selectedWish: null,
+      fromName: "",
       descricao: "",
+      liquidationMethod: "",
+      amount: null,
+      comments: "",
     };
   },
   computed: {
@@ -161,32 +165,36 @@ export default {
     },
     emissions: function() {
       return this.$store.state.tokens.filter(el => el.currentAmount != 0);
-    },
-    wishes: function() {
-      return this.$store.state.allWishes;
-    },
+    }   
   },
   methods: {
-    openIntentionModal(i) {
-      $("#intention").modal("show");
+    openLiquidationModal(i) {
+      $("#liquidationModal").modal("show");
       this.selected = i;
+      console.log(this.selected);
     },
-    save() {
+    liquidar() {
       let payload = {
         description: this.descricao,
-        emissionId: this.selected.id,
+        fromName: this.fromName,
+        amount: this.amount,
+        liquidationMethod: this.liquidationMethod,
+        selected: this.selected,
         toName: this.selected.name,
-        toUid: this.selected.uid,
-        wishId: this.selectedWish,
+        currentAmount: this.selected.currentAmount,
+        comments: this.comments  
       };  
-      this.$store.dispatch('setLiquidateIntentionDb', payload);
-      this.descricao = "";
-      this.selectedWish = null;
+      this.$store.dispatch('liquidateTokens', payload);   
+      this.fromName = "", 
+      this.liquidationMethod = "",
+      this.amount = null,
+      this.descricao = "";  
       this.selected = {};
+      this.comments = "";
       this.closeModal();
     },
     closeModal() {
-      $("#intention").modal("hide");
+      $("#liquidationModal").modal("hide");
     },
     addEmission() {
       $("#addEmission").modal("show");

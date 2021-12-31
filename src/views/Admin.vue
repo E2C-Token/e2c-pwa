@@ -45,6 +45,12 @@
               </li>
 
               <li>
+                <router-link to="/admin/control">
+                  <i class="fas fa-bullhorn"></i>
+                  <span>Control</span>
+                </router-link>
+              </li>
+              <li>
                 <router-link to="/admin/overview">
                   <i class="fas fa-bullhorn"></i>
                   <span>Painel</span>
