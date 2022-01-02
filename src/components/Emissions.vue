@@ -24,6 +24,7 @@
           <td>{{ i.description }}</td>
           <!-- Button trigger modal -->
           <button
+            v-if="i.currentAmount > 0"
             type="button"
             class="btn btn-primary mt-2 mb-2"
             @click="openLiquidationModal(i)"            
@@ -41,7 +42,7 @@
       aria-labelledby="liquidationModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="liquidationModalLabel">Liquidar</h5>            
@@ -123,7 +124,7 @@
       tabindex="-1"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="emissionLabel">Reconhecer</h5>

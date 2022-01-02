@@ -13,10 +13,9 @@ fb.emissions.onSnapshot((snapshot) => {
 
   snapshot.forEach((doc) => {
     let token = doc.data();
-    token.id = doc.id;
-    if(token.currentAmount !== 0) {
-      tokensArray.push(token);
-    }    
+    token.id = doc.id;   
+    tokensArray.push(token);
+       
   });
 
   store.commit("setTokens", tokensArray);
@@ -261,7 +260,7 @@ const store = new Vuex.Store({
           amount: amount,
           fromName: fromName,
           toName: toName,
-          liquidationMethod: liquidationMethod,
+          how: liquidationMethod,
           comments: comments,
           description: description,
         });

@@ -3,15 +3,23 @@
     <div class="row">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Quem reconhece</label>
-          <input type="text" v-model="quemReconhece">
+            <label class="input-group-text" for="quemLiquida">Quem reconheceu</label>
         </div>
+        <input
+            v-model="quemReconhece"
+            type="text"
+            class="form-control"                    
+        />
       </div>         
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <label class="input-group-text" for="quemRecebe">Quem recebe</label>
-          <input type="text" v-model="quemRecebe">
+            <label class="input-group-text" for="quemLiquida">Quem recebe</label>
         </div>
+        <input
+            v-model="quemRecebe"
+            type="text"
+            class="form-control"                    
+        />
       </div>         
       <div class="input-group mb-3">
         <div class="input-group-prepend">
