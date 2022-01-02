@@ -4,7 +4,7 @@
       
       <tbody>
         <tr v-for="(i, index) in liquidated" :key="index">
-          <td><strong>{{ i.fromName }}</strong> liquidou <strong>{{ i.amount }}</strong> token E2C para <strong>{{ i.toName }}</strong> em troca de <strong>{{ i.liquidationMethod }}</strong></td>          
+          <td><strong>{{ i.fromName }}</strong> liquidou <strong>{{ i.amount }}</strong> tokens E2C para <strong>{{ i.toName }}</strong> em troca de <strong>{{ i.liquidationMethod }}</strong></td>          
         </tr>
       </tbody>
     </table>
