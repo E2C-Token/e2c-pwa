@@ -241,7 +241,7 @@ const store = new Vuex.Store({
       });
       alert("Um aviso de Intenção de Liquidação será enviado!");
     },
-    async liquidateTokens({ state, commit }, payload) {
+    async liquidateTokens({ commit }, payload) {
       // update token amount
       const tokenDoc = payload.selected.id;
       const currentAmount = payload.currentAmount;

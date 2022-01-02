@@ -164,7 +164,8 @@ export default {
       return this.$store.state.userProfile;
     },
     emissions: function() {
-      return this.$store.state.tokens.filter(el => el.currentAmount != 0);
+      return this.$store.state.tokens
+      //.filter(el => el.currentAmount != 0);
     }   
   },
   methods: {
@@ -180,7 +181,7 @@ export default {
         amount: this.amount,
         liquidationMethod: this.liquidationMethod,
         selected: this.selected,
-        toName: this.selected.name,
+        toName: this.selected.toName,
         currentAmount: this.selected.currentAmount,
         comments: this.comments  
       };  

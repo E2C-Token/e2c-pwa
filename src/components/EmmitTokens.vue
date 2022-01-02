@@ -9,7 +9,7 @@
       </div>         
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Quem recebe</label>
+          <label class="input-group-text" for="quemRecebe">Quem recebe</label>
           <input type="text" v-model="quemRecebe">
         </div>
       </div>         
@@ -40,10 +40,10 @@
       </div>
       <div class="input-group mb-3 mt-3">
         <div class="input-group-prepend">
-          <span class="input-group-text">Quem recebe quer liquidar por</span>
+          <span class="input-group-text">Quem recebe tem desejo de liquidação</span>
         </div>
         <textarea
-          v-model="liqui"        
+          v-model="preLiquiWish"        
           class="form-control"          
         />        
       </div>
@@ -61,7 +61,6 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
 export default {
   name: "EmmitTokens",
   data: function() {
@@ -71,7 +70,7 @@ export default {
       quemReconhece: null,
       quemRecebe: null,
       amount: null,
-      liqui: null  
+      preLiquiWish: null  
     };
   },  
   methods: {
@@ -87,7 +86,7 @@ export default {
           toName: this.quemRecebe,
           amount: this.amount,
           description: this.descricao,
-          liqui: this.liqui
+          preLiquiWish: this.preLiquiWish
           
         };
         this.$store.dispatch("emmitTokens", payload);
