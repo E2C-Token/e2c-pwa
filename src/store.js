@@ -222,7 +222,8 @@ const store = new Vuex.Store({
         fromName: payload.fromName,  
         toName: payload.toName,
         description: payload.description,
-        liquidationWish: payload.liqui,
+        liquidationWish: payload.preLiquiWish,
+        contact: payload.contact
       });
       $('#addEmission').modal('hide');
     },

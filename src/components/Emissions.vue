@@ -6,10 +6,11 @@
           Reconhecer
         </button>
         <tr>
-          <th scope="col">Quantidade</th>
           <th scope="col">Quem reconheceu</th>
           <th scope="col">Quem recebeu</th>
           <th scope="col">Descrição</th>
+          <th scope="col">Contato</th>
+          <th scope="col">Quantidade</th>
           <th scope="col">Ação</th>
         </tr>
       </thead>
@@ -18,10 +19,11 @@
           v-for="(i, index) in emissions"
           :key="index"          
         >
-          <td>{{ i.currentAmount }}</td>
           <td>{{ i.fromName }}</td>
           <td>{{ i.toName || i.name }}</td>
           <td>{{ i.description }}</td>
+          <td>{{ i.contact }}</td>
+          <td>{{ i.currentAmount }}</td>
           <!-- Button trigger modal -->
           <button
             v-if="i.currentAmount > 0"
@@ -75,7 +77,7 @@
                     <label class="input-group-text" for="description">Como a liquidação ocorreu</label>
                 </div>
                 <textarea
-                    v-model="liquidationMethod"
+                    v-model="how"
                     type="text"
                     class="form-control"                    
                 />
@@ -155,7 +157,7 @@ export default {
       selected: {},
       fromName: "",
       descricao: "",
-      liquidationMethod: "",
+      how: "",
       amount: null,
       comments: "",
     };
@@ -180,7 +182,7 @@ export default {
         description: this.descricao,
         fromName: this.fromName,
         amount: this.amount,
-        liquidationMethod: this.liquidationMethod,
+        how: this.liquidationMethod,
         selected: this.selected,
         toName: this.selected.toName,
         currentAmount: this.selected.currentAmount,
@@ -188,7 +190,7 @@ export default {
       };  
       this.$store.dispatch('liquidateTokens', payload);   
       this.fromName = "", 
-      this.liquidationMethod = "",
+      this.how = "",
       this.amount = null,
       this.descricao = "";  
       this.selected = {};

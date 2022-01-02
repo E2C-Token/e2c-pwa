@@ -55,6 +55,16 @@
           class="form-control"          
         />        
       </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Contato</span>
+        </div>
+        <input
+          type="text"
+          v-model="contact"        
+          class="form-control"          
+        />        
+      </div>
       <br />
       <div>
         <button
@@ -78,7 +88,8 @@ export default {
       quemReconhece: null,
       quemRecebe: null,
       amount: null,
-      preLiquiWish: null  
+      preLiquiWish: null,
+      contact: null  
     };
   },  
   methods: {
@@ -94,7 +105,8 @@ export default {
           toName: this.quemRecebe,
           amount: this.amount,
           description: this.descricao,
-          preLiquiWish: this.preLiquiWish
+          preLiquiWish: this.preLiquiWish,
+          contact: this.contact
           
         };
         this.$store.dispatch("emmitTokens", payload);
