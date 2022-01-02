@@ -172,7 +172,7 @@ export default {
     openLiquidationModal(i) {
       $("#liquidationModal").modal("show");
       this.selected = i;
-      console.log(this.selected);
+      //console.log(this.selected);
     },
     liquidar() {
       let payload = {
