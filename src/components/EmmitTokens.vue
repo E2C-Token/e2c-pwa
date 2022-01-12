@@ -137,6 +137,9 @@ export default {
       this.descricao = null;      
       this.amount = null;
       this.email = null;
+      this.quemReconhece = null;
+      this.contact = null;
+      this.preLiquiWish = null;
     },
   },
 };

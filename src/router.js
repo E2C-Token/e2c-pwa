@@ -7,7 +7,7 @@ import Transactions from "./views/Transactions.vue";
 import WishAccess from "./views/WishAccess.vue";
 import Profile from "./views/Profile.vue";
 import Avaiable from "./views/Avaiable.vue";
-import Control from "./components/Control.vue";
+
 // import Liquidate from "./views/Liquidate.vue";
 import {fb} from './firebase'
 
@@ -37,11 +37,6 @@ const router =  new Router({
           path: "transactions",
           name: "transactions",
           component: Transactions
-        },        
-        {
-          path: "control",
-          name: "control",
-          component: Control
         },
         {
           path: "profile",
@@ -64,16 +59,7 @@ const router =  new Router({
         //   component: Liquidate
         // }
       ]
-    },
-    {
-      path: "/checkout",
-      name: "checkout",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/Checkout.vue")
-    },
+    },  
     {
       path: "/about",
       name: "about",

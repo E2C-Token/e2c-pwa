@@ -1,6 +1,6 @@
 <template>
     <div>
-        {{ balance }}
+        {{ balance }} E2C
     </div>
 </template>
 <script>
@@ -10,17 +10,19 @@ export default {
         return {
             tokens: [],
             userProfile: [],
-            myTokens: []
+            myTokens: [],
+            myBallance: 0
         }
     },
     async mounted() {
-       this.tokens = await this.$store.state.tokens;
-       this.userProfile = await this.$store.state.userProfile;
-    //    this.setMyTokens();
+       this.userProfile = await this.$store.state.userProfile.name;
+       this.tokens = await this.$store.state.tokens.filter(token => token.toName === this.userProfile);   
     },
     computed: {
         balance: function() {
-            return this.tokens.amount;
+            return this.tokens.reduce((a, b) => {
+            return a + b.currentAmount;      
+            }, 0);
         }
     }
     

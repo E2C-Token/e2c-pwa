@@ -249,7 +249,7 @@ const store = new Vuex.Store({
       const total = currentAmount - amount;
       const toName = payload.toName;
       const fromName = payload.fromName;
-      const liquidationMethod = payload.liquidationMethod;
+      const liquidationMethod = payload.how;
       const description = payload.description;
       const comments = payload.comments;
       

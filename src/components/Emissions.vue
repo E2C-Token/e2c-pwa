@@ -182,7 +182,7 @@ export default {
         description: this.descricao,
         fromName: this.fromName,
         amount: this.amount,
-        how: this.liquidationMethod,
+        how: this.how,
         selected: this.selected,
         toName: this.selected.toName,
         currentAmount: this.selected.currentAmount,
