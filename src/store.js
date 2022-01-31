@@ -100,7 +100,7 @@ fb.avaiableActive.onSnapshot((snapshot) => {
 });
 
 // All Liquidations
-fb.liquidations.onSnapshot((snapshot) => {
+fb.liquidations.orderBy("createdAt", "desc").onSnapshot((snapshot) => {
   let liquidationsArray = [];
 
   snapshot.forEach((doc) => {

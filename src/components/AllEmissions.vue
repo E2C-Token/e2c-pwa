@@ -15,9 +15,9 @@
           v-for="(i,index) in allEmissions" :key="index"       
         >
           <td>{{ i.fromName }}</td>
-          <td>{{ i.name }}</td>
+          <td>{{ i.toName }}</td>
           <td>{{ i.description }}</td>          
-          <td>{{ i.currentAmount }}</td>
+          <td>{{ i.initialAmount }}</td>
         </tr>
       </tbody>
     </table>    

@@ -168,7 +168,7 @@ export default {
     },
     emissions: function() {
       return this.$store.state.tokens
-      //.filter(el => el.currentAmount != 0);
+      .filter(el => el.currentAmount != 0);
     }   
   },
   methods: {
