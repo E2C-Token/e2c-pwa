@@ -16,11 +16,11 @@ export default {
     },
     async mounted() {
        this.userProfile = await this.$store.state.userProfile.name;
-       this.tokens = await this.$store.state.tokens.filter(token => token.toName === this.userProfile);   
+       this.myTokens = await this.$store.state.tokens.filter(token => token.toName === this.userProfile);   
     },
     computed: {
         balance: function() {
-            return this.tokens.reduce((a, b) => {
+            return this.myTokens.reduce((a, b) => {
             return a + b.currentAmount;      
             }, 0);
         }

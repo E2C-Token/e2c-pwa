@@ -16,10 +16,7 @@
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
               <router-link to="/" class="nav-link">Home</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/products" class="nav-link" href="#products">Experiências</router-link>
-            </li>
+            </li>           
 
             <li class="nav-item">
               <router-link to="/about" class="nav-link" href="#">Sobre</router-link>
