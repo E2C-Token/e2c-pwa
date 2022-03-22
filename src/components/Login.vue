@@ -36,6 +36,10 @@
                                 <button class="btn btn-primary" @click="login">Entrar</button>
                             </div>
 
+                            <div class="form-group">
+                                <button class="btn btn-secondary" @click="sendPasswordResetEmail">Esqueci minha senha</button>
+                            </div>
+
                         </div>
                         <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="pills-register-tab">
                             
@@ -61,6 +65,7 @@
                             <div class="form-group">
                                 <button class="btn btn-primary" @click="register">Cadastrar</button>
                             </div>
+                            
 
                         </div>
                         </div>
@@ -152,6 +157,15 @@ export default {
                 }
                 console.log(error);
             });
+      },
+      sendPasswordResetEmail(){
+        fb.auth().sendPasswordResetEmail(this.email)
+        .then(function() {
+            alert('Email enviado com sucesso');
+        })
+        .catch(function(error) {
+            alert('Deu ruim: ' + error);
+        });
       }
 
   }
